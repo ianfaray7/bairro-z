@@ -1,0 +1,585 @@
+fileFormatVersion: 2
+guid: a9f98b1b2b4ae24448c8c545844801a2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2837927636657753981
+    second: Bomber Tower_0
+  - first:
+      213: 5838288733817331188
+    second: Bomber Tower_1
+  - first:
+      213: 650484038419638536
+    second: Bomber Tower_2
+  - first:
+      213: 3754964560506003278
+    second: Bomber Tower_3
+  - first:
+      213: -7389751446721058104
+    second: Bomber Tower_4
+  - first:
+      213: 7353981243804894710
+    second: Bomber Tower_5
+  - first:
+      213: 2001520391857358802
+    second: Bomber Tower_6
+  - first:
+      213: -5347973168329112728
+    second: Bomber Tower_7
+  - first:
+      213: -683730118994032455
+    second: Bomber Tower_8
+  - first:
+      213: -5661162715086838262
+    second: Bomber Tower_9
+  - first:
+      213: -3523102053909866863
+    second: Bomber Tower_10
+  - first:
+      213: 6827253262620728288
+    second: Bomber Tower_11
+  - first:
+      213: 6867378936063986807
+    second: Bomber Tower_12
+  - first:
+      213: -426253678553018709
+    second: Bomber Tower_13
+  - first:
+      213: -4391549386486305957
+    second: Bomber Tower_14
+  - first:
+      213: 7570732536571179120
+    second: Bomber Tower_15
+  - first:
+      213: 8110534041772525333
+    second: Bomber Tower_16
+  - first:
+      213: -2986250202530496543
+    second: Bomber Tower_17
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Bomber Tower_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 146
+        width: 107
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7fcf394628526720800000000000000
+      internalID: 2837927636657753981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 146
+        width: 106
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4fdd85bbba4c50150800000000000000
+      internalID: 5838288733817331188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_2
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 176
+        width: 84
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 809601a59cbf60900800000000000000
+      internalID: 650484038419638536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_3
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 145
+        width: 85
+        height: 113
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4f14258f505c1430800000000000000
+      internalID: 3754964560506003278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_4
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 156
+        width: 77
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ca23c73634527990800000000000000
+      internalID: -7389751446721058104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_5
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 137
+        width: 112
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f540e96af69e0660800000000000000
+      internalID: 7353981243804894710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_6
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 218
+        width: 42
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d7cb5f1134d6cb10800000000000000
+      internalID: 2001520391857358802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_7
+      rect:
+        serializedVersion: 2
+        x: 572
+        y: 111
+        width: 110
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8634c69fcbe28c5b0800000000000000
+      internalID: -5347973168329112728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_8
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 218
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b8002f4417e286f0800000000000000
+      internalID: -683730118994032455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_9
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 128
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a06209731828f61b0800000000000000
+      internalID: -5661162715086838262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_10
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 1
+        width: 128
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 196d041295d6b1fc0800000000000000
+      internalID: -3523102053909866863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_11
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 146
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb92268ba64fbe50800000000000000
+      internalID: 6827253262620728288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_12
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 145
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77c0816e1c4dd4f50800000000000000
+      internalID: 6867378936063986807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_13
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 1
+        width: 128
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: baec4a9a984a51af0800000000000000
+      internalID: -426253678553018709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_14
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 1
+        width: 128
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5b26e4b9151e03c0800000000000000
+      internalID: -4391549386486305957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_15
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 111
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07031db6125a01960800000000000000
+      internalID: 7570732536571179120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_16
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 1
+        width: 107
+        height: 110
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51780925db76e8070800000000000000
+      internalID: 8110534041772525333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bomber Tower_17
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 1
+        width: 76
+        height: 96
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ef3bbb3345be86d0800000000000000
+      internalID: -2986250202530496543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Bomber Tower_0: 2837927636657753981
+      Bomber Tower_1: 5838288733817331188
+      Bomber Tower_10: -3523102053909866863
+      Bomber Tower_11: 6827253262620728288
+      Bomber Tower_12: 6867378936063986807
+      Bomber Tower_13: -426253678553018709
+      Bomber Tower_14: -4391549386486305957
+      Bomber Tower_15: 7570732536571179120
+      Bomber Tower_16: 8110534041772525333
+      Bomber Tower_17: -2986250202530496543
+      Bomber Tower_2: 650484038419638536
+      Bomber Tower_3: 3754964560506003278
+      Bomber Tower_4: -7389751446721058104
+      Bomber Tower_5: 7353981243804894710
+      Bomber Tower_6: 2001520391857358802
+      Bomber Tower_7: -5347973168329112728
+      Bomber Tower_8: -683730118994032455
+      Bomber Tower_9: -5661162715086838262
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
