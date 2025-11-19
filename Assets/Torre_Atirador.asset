@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc3e7c62f86dc1449984070b53aa33a, type: 3}
+  m_Name: Torre_Atirador
+  m_EditorClassIdentifier: 
+  towerName: Torre_Atirador
+  towerIconAvailable: {fileID: -4777898227977234520, guid: d371917d6a698034abb6a775a7ed913d, type: 3}
+  towerIconUnavailable: {fileID: -6604499924173756236, guid: 5c30541a25bb5c64191847489a5dc20b, type: 3}
+  towerType: 2
+  towerLevelPrefabs:
+  - {fileID: 3210213202075754577, guid: 59947d9b61740eb4fa0273852c0775ea, type: 3}
+  - {fileID: 3682131951664350118, guid: fa9ac9e262d02b44b888ffb1c219c10f, type: 3}
+  - {fileID: 7447250093219922624, guid: 2e1c5e23da843794f8f13458a8585e64, type: 3}
+  - {fileID: 7997376856205837238, guid: 96c6acb72286e084a9571d4d0bef7031, type: 3}
+  - {fileID: 9143119964449830214, guid: 5ef48cf2d8ec7b949b08cb86fa0432d6, type: 3}
+  statsPerLevel:
+  - damage: 50
+    attackSpeed: 0.2
+    range: 10
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 8649166030583499748, guid: 45d0d21f575a2774d9847e45686f9f40, type: 3}
+    projectileSpeed: 15
+  - damage: 50
+    attackSpeed: 0.4
+    range: 10
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 8649166030583499748, guid: 45d0d21f575a2774d9847e45686f9f40, type: 3}
+    projectileSpeed: 15
+  - damage: 70
+    attackSpeed: 0.5
+    range: 11
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 8649166030583499748, guid: 45d0d21f575a2774d9847e45686f9f40, type: 3}
+    projectileSpeed: 15
+  - damage: 75
+    attackSpeed: 0.6
+    range: 11
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 8649166030583499748, guid: 45d0d21f575a2774d9847e45686f9f40, type: 3}
+    projectileSpeed: 15
+  - damage: 100
+    attackSpeed: 0.7
+    range: 11
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 8649166030583499748, guid: 45d0d21f575a2774d9847e45686f9f40, type: 3}
+    projectileSpeed: 15
+  baseCost: 80
+  upgradeCosts: 280000003c0000005000000078000000
+  description: 
+  baseDamage: 10
+  baseAttackRange: 4
+  baseAttackSpeed: 2

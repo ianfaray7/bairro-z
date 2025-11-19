@@ -8,13 +8,14 @@ public class BuildTile : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float sellPricePercentage = 0.5f; // 50% do valor original
     
     [Header("References")]
-    [SerializeField] private TowerBuildUI towerBuildUI;
+    [SerializeField] private TowerBuildUI_NOVO towerBuildUI;
     
     private bool playerNearby = false;
     private bool hasTower = false;
     private SpriteRenderer spriteRenderer;
     private TowerData currentTowerData; // Armazena dados da torre construída
-    private bool isUpgraded = false; // Controla se a torre foi upgradada
+    private int currentTowerLevel = 0; // Nível atual da torre (0-4 = níveis 1-5)
+    private GameObject currentTowerObject; // Referência ao GameObject da torre
     
     void Start()
     {
@@ -105,23 +106,33 @@ public class BuildTile : MonoBehaviour
             return;
         }
         
-        // Calcula valor de venda
-        int sellPrice = 0;
-        if (currentTowerData != null)
+        // Calcula valor de venda (custo base + upgrades)
+        int totalCost = currentTowerData.baseCost;
+        for (int i = 0; i < currentTowerLevel; i++)
         {
-            sellPrice = Mathf.RoundToInt(currentTowerData.cost * sellPricePercentage);
+            totalCost += currentTowerData.upgradeCosts[i];
         }
+        int sellPrice = Mathf.RoundToInt(totalCost * sellPricePercentage);
         
         Debug.Log($"Torre vendida em {transform.position} por ${sellPrice}");
+        
+        // Destroi o GameObject da torre
+        if (currentTowerObject != null)
+        {
+            Destroy(currentTowerObject);
+        }
+        
         hasTower = false;
         currentTowerData = null;
-        isUpgraded = false; // Reseta o status de upgrade
+        currentTowerLevel = 0;
+        currentTowerObject = null;
         HideSellUI();
         
-        // Volta a cor verde
+        // Volta a mostrar o sprite do tile
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.enabled = true;
+            // spriteRenderer.color = Color.green; // REMOVIDO - usa cor original do sprite
         }
         
         // Volta a ser trigger (atravessável)
@@ -148,13 +159,14 @@ public class BuildTile : MonoBehaviour
         
         Debug.Log($"Torre {towerData.towerName} construída em {transform.position}");
         hasTower = true;
-        currentTowerData = towerData; // Salva dados da torre
+        currentTowerData = towerData;
+        currentTowerLevel = 0; // Começa no nível 1 (índice 0)
         HideBuildUI();
         
-        // Muda a cor para vermelho para indicar que foi construído
+        // Esconde o sprite do BuildTile
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.enabled = false;
         }
         
         // Torna o tile sólido (não atravessável)
@@ -164,27 +176,8 @@ public class BuildTile : MonoBehaviour
             collider.isTrigger = false;
         }
         
-        // FASE 2: Descomente para instanciar torre de verdade
-        /*
-        if (towerData.towerPrefab != null)
-        {
-            GameObject towerObj = Instantiate(
-                towerData.towerPrefab, 
-                transform.position, 
-                Quaternion.identity
-            );
-            
-            // Inicializa a torre com os dados
-            TowerBehavior tower = towerObj.GetComponent<TowerBehavior>();
-            if (tower != null)
-            {
-                tower.Initialize(towerData);
-            }
-            
-            // Opcional: Define a torre como filho deste tile
-            towerObj.transform.SetParent(transform);
-        }
-        */
+        // Instancia a torre nível 1
+        InstantiateTower();
     }
     
     // Visualização no editor
@@ -213,29 +206,77 @@ public class BuildTile : MonoBehaviour
             return;
         }
         
-        if (isUpgraded)
+        if (currentTowerLevel >= 4)
         {
-            Debug.LogWarning("Torre já foi upgradada!");
+            Debug.LogWarning("Torre já está no nível máximo!");
             return;
         }
         
-        Debug.Log($"Torre em {transform.position} foi upgradada!");
-        isUpgraded = true;
-        HideSellUI();
-        
-        // Muda a cor para laranja (upgrade)
-        if (spriteRenderer != null)
+        // Verifica se tem dinheiro
+        int upgradeCost = currentTowerData.upgradeCosts[currentTowerLevel];
+        if (ResourceManager.Instance != null)
         {
-            spriteRenderer.color = new Color(1f, 0.65f, 0f); // Laranja
+            if (!ResourceManager.Instance.SpendMoney(upgradeCost))
+            {
+                Debug.LogWarning("Dinheiro insuficiente para upgrade!");
+                return;
+            }
         }
         
-        // FASE 2: Aqui você pode melhorar os stats da torre
-        // Por exemplo: aumentar dano, alcance, velocidade, etc.
+        currentTowerLevel++;
+        Debug.Log($"Torre em {transform.position} upgradada para nível {currentTowerLevel + 1}!");
+        HideSellUI();
+        
+        // Atualiza o visual da torre
+        InstantiateTower();
     }
     
     // Verifica se a torre pode ser upgradada
     public bool CanUpgrade()
     {
-        return hasTower && !isUpgraded;
+        return hasTower && currentTowerLevel < 4;
+    }
+    
+    // Retorna o custo do próximo upgrade
+    public int GetUpgradeCost()
+    {
+        if (!hasTower || currentTowerLevel >= 4 || currentTowerData == null)
+            return 0;
+        
+        return currentTowerData.upgradeCosts[currentTowerLevel];
+    }
+    
+    // Retorna o nível atual da torre (1-5)
+    public int GetTowerLevel()
+    {
+        return currentTowerLevel + 1;
+    }
+    
+    // Instancia ou atualiza o GameObject da torre
+    void InstantiateTower()
+    {
+        if (currentTowerData == null || currentTowerData.towerLevelPrefabs.Length <= currentTowerLevel)
+            return;
+        
+        // Destroi a torre anterior se existir
+        if (currentTowerObject != null)
+        {
+            Destroy(currentTowerObject);
+        }
+        
+        // Instancia a torre do nível atual
+        GameObject prefab = currentTowerData.towerLevelPrefabs[currentTowerLevel];
+        if (prefab != null)
+        {
+            currentTowerObject = Instantiate(prefab, transform.position, Quaternion.identity);
+            currentTowerObject.transform.SetParent(transform);
+            
+            // Inicializa a torre com os dados (se tiver TowerBehavior)
+            TowerBehavior tower = currentTowerObject.GetComponent<TowerBehavior>();
+            if (tower != null)
+            {
+                tower.Initialize(currentTowerData);
+            }
+        }
     }
 }

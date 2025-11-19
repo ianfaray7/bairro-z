@@ -13,14 +13,33 @@ public class TowerBehavior : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Transform firePoint;
     
+    [Header("Animation (Optional)")]
+    [SerializeField] private Animator animator;
+    
     private float attackCooldown = 0f;
     private Transform currentTarget;
+    private bool hasAnimator = false;
     
     void Start()
     {
+        // Tenta pegar o Animator se não foi atribuído
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+        
+        hasAnimator = animator != null;
+        
         if (towerData != null)
         {
             Debug.Log($"Torre {towerData.towerName} inicializada!");
+        }
+        
+        // Inicia na animação Idle se tiver animator
+        if (hasAnimator)
+        {
+            animator.SetBool("IsIdle", true);
+            animator.SetBool("IsShooting", false);
         }
     }
     
@@ -40,6 +59,20 @@ public class TowerBehavior : MonoBehaviour
         {
             Attack();
         }
+        
+        // Atualiza animação baseado no estado
+        UpdateAnimation();
+    }
+    
+    void UpdateAnimation()
+    {
+        if (!hasAnimator)
+            return;
+        
+        // Se tem alvo, fica atirando, senão fica Idle
+        bool isShooting = currentTarget != null;
+        animator.SetBool("IsShooting", isShooting);
+        animator.SetBool("IsIdle", !isShooting);
     }
     
     void FindTarget()
@@ -50,7 +83,7 @@ public class TowerBehavior : MonoBehaviour
         // Procura todos os inimigos no alcance
         Collider2D[] enemies = Physics2D.OverlapCircleAll(
             transform.position, 
-            towerData.attackRange, 
+            towerData.baseAttackRange, 
             enemyLayer
         );
         
@@ -72,8 +105,14 @@ public class TowerBehavior : MonoBehaviour
     {
         if (towerData == null || currentTarget == null)
             return;
+        
+        // Trigger da animação de ataque (se tiver)
+        if (hasAnimator)
+        {
+            animator.SetTrigger("Attack");
+        }
             
-        Debug.Log($"Torre {towerData.towerName} atacou {currentTarget.name} causando {towerData.damage} de dano!");
+        Debug.Log($"Torre {towerData.towerName} atacou {currentTarget.name} causando {towerData.baseDamage} de dano!");
         
         // TODO: Instanciar projétil ou aplicar dano direto
         // Exemplo: Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
@@ -81,10 +120,10 @@ public class TowerBehavior : MonoBehaviour
         // Aplica dano (se o inimigo tiver script de vida)
         // var enemy = currentTarget.GetComponent<Enemy>();
         // if (enemy != null)
-        //     enemy.TakeDamage(towerData.damage);
+        //     enemy.TakeDamage(towerData.baseDamage);
         
         // Reseta cooldown
-        attackCooldown = towerData.attackSpeed;
+        attackCooldown = towerData.baseAttackSpeed;
     }
     
     void RotateTowardsTarget()
@@ -101,7 +140,7 @@ public class TowerBehavior : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        float range = towerData != null ? towerData.attackRange : 5f;
+        float range = towerData != null ? towerData.baseAttackRange : 5f;
         Gizmos.DrawWireSphere(transform.position, range);
     }
     

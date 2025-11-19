@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc3e7c62f86dc1449984070b53aa33a, type: 3}
+  m_Name: Torre_Arqueira
+  m_EditorClassIdentifier: 
+  towerName: Torre_Arqueira
+  towerIconAvailable: {fileID: -2096519797462168613, guid: a2c3c3a6670dbb64d976404d87adde52, type: 3}
+  towerIconUnavailable: {fileID: 7521211395026885488, guid: e0e4efb2221a8b64c8e7e353b384c180, type: 3}
+  towerType: 3
+  towerLevelPrefabs:
+  - {fileID: 7884158127428734790, guid: 8e9908bcda6b80643b6e0707aedfb526, type: 3}
+  - {fileID: 8309386634751717417, guid: 04e62970e3753e441a28927591eae617, type: 3}
+  - {fileID: 5025460954263486003, guid: 7ee099753674a1b4bb78b6c436029cc7, type: 3}
+  - {fileID: 3134795107311706397, guid: 5d1589faec1c1674891e35f70931ee67, type: 3}
+  - {fileID: 3542066141216335234, guid: 854191daa0301d849956ed1e6f0f4eda, type: 3}
+  statsPerLevel:
+  - damage: 10
+    attackSpeed: 1
+    range: 5
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 300214521672597301, guid: 3c46bb0ec55eb2b47a0516f3c4848278, type: 3}
+    projectileSpeed: 12
+  - damage: 15
+    attackSpeed: 1.2
+    range: 6
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 300214521672597301, guid: 3c46bb0ec55eb2b47a0516f3c4848278, type: 3}
+    projectileSpeed: 12
+  - damage: 20
+    attackSpeed: 1.5
+    range: 7
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 300214521672597301, guid: 3c46bb0ec55eb2b47a0516f3c4848278, type: 3}
+    projectileSpeed: 12
+  - damage: 30
+    attackSpeed: 1.8
+    range: 8
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 300214521672597301, guid: 3c46bb0ec55eb2b47a0516f3c4848278, type: 3}
+    projectileSpeed: 12
+  - damage: 40
+    attackSpeed: 2
+    range: 9
+    aoeRadius: 0
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 300214521672597301, guid: 3c46bb0ec55eb2b47a0516f3c4848278, type: 3}
+    projectileSpeed: 12
+  baseCost: 120
+  upgradeCosts: 3c0000005a0000006e000000a0000000
+  description: 
+  baseDamage: 20
+  baseAttackRange: 6
+  baseAttackSpeed: 1.2
