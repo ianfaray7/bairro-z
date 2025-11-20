@@ -62,5 +62,16 @@ public class Weapon : MonoBehaviour
         }
 
         cdTimer = localCooldown;
+        // Sonzinho do tiro: se existe MapAudioManager, ele centraliza os SFX
+        if (MapAudioManager.main != null)
+        {
+            MapAudioManager.main.PlayBow();
+        }
+        else
+        {
+            // fallback: se quisermos um som específico por arma, adicione um AudioSource
+            // (não alterado por padrão pra evitar conflitos com vocês). Ex:
+            // var a = GetComponent<AudioSource>(); if (a != null && shootClip != null) a.PlayOneShot(shootClip);
+        }
     }
 }

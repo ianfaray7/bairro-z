@@ -32,6 +32,8 @@ void OnTriggerEnter2D(Collider2D other)
     // Só atinge objetos com a tag "Enemy"
     if (!other.gameObject.CompareTag("Enemy"))
         return;
+    // Aplique dano chamando TakeDamage em qualquer componente que o implemente
+    other.gameObject.SendMessage("TakeDamage", (float)damage, SendMessageOptions.DontRequireReceiver);
 
     // Aqui futuramente você vai colocar o dano no inimigo
     // Exemplo:
@@ -44,6 +46,8 @@ void OnTriggerEnter2D(Collider2D other)
     // Destrói o projétil ao atingir um inimigo
     if (destroyOnHit)
         Destroy(gameObject);
+    // Toca som de hit global se definido
+    if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieHit();
 }
 
     void OnCollisionEnter2D(Collision2D col)

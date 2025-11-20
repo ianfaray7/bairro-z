@@ -19,10 +19,14 @@ public class ProjectileMap : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // exemplo simples: se colidir com "Enemy" aplicar dano
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        var go = other.gameObject;
+        bool isEnemy = (go.layer == LayerMask.NameToLayer("Enemy") || go.CompareTag("Enemy"));
+        if (isEnemy)
         {
-            // se tiver script de inimigo, aplique dano aqui
-            // var e = other.GetComponent<Enemy>(); if (e) e.TakeDamage(damage);
+            // Tenta aplicar dano em qualquer componente que tenha TakeDamage(float)
+            other.gameObject.SendMessage("TakeDamage", (float)damage, SendMessageOptions.DontRequireReceiver);
+            // Toca som de hit se houver um MapAudioManager
+            if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieHit();
             if (destroyOnHit) Destroy(gameObject);
         }
         else
