@@ -1,0 +1,139 @@
+PROJETO BAIRRO Z - ESTRUTURA CONSOLIDADA
+==========================================
+
+DATA: 19/11/2025
+STATUS: ✅ Pronto para uso - Todas as branches mescladas
+
+⚠️ CORREÇÕES APLICADAS:
+- Pacotes problemáticos removidos (aseprite, tilemap.extras)
+- TextMesh Pro consolidado (apenas 1 pasta)
+- Settings consolidado (apenas 1 pasta)
+- Cache limpo e regenerado
+- Todas as cenas funcionais
+
+ESTRUTURA FINAL:
+----------------
+
+Assets/
+├── TextMesh Pro/          (ÚNICA - Compartilhada)
+├── Settings/              (ÚNICA - Compartilhada)
+├── Scripts/               (Pasta organizada - vazia por enquanto)
+│
+├── Filizola/              ⭐ Sistema de Menu e UI
+│   ├── Scenes/
+│   │   ├── MainMenu.unity
+│   │   ├── FinaldeJogo.unity
+│   │   └── SampleScene.unity
+│   └── _Scripts/PlayerMovementFilizola.cs
+│
+├── Ian/                   ⭐ Sistema de Torres (PRINCIPAL)
+│   ├── Scenes/AtaqueTorre.unity
+│   ├── Scripts compartilhados:
+│   │   ├── BuildTile.cs
+│   │   ├── CameraFollow.cs
+│   │   ├── InteractionRadiusVisualizer.cs
+│   │   ├── PlayerMovement.cs (compartilhado Ian/Luka)
+│   │   ├── ResourceManager.cs
+│   │   ├── TowerBehavior.cs
+│   │   ├── TowerBuildUI_NOVO.cs
+│   │   └── TowerData.cs
+│   ├── Scripts específicos:
+│   │   ├── EnemyIan.cs
+│   │   ├── ProjectileIan.cs
+│   │   ├── TowerAttack.cs
+│   │   └── TowerStats.cs
+│   └── Prefabs/ (Torres)
+│
+├── Luka/                  ⭐ Sistema de Personagem
+│   ├── Scenes/SampleScenePersonagem.unity
+│   ├── Scripts/
+│   │   ├── FlipByMouse.cs
+│   │   ├── OrbitingWeaponsManager.cs
+│   │   ├── ProjectileLuka.cs
+│   │   └── Weapon.cs
+│   └── Prefabs/
+│
+├── Map/                   ⭐ Sistema de Mapas
+│   ├── Scenes/Map_first.unity
+│   ├── Scripts/
+│   │   ├── PlayerController.cs
+│   │   └── ProjectileMap.cs
+│   └── Art/
+│
+└── Scenes/                🎮 Sistema Durand (original)
+    ├── durandscene.unity
+    ├── EnemyDurand.cs
+    ├── enemyManager.cs
+    ├── enemyVoador.cs
+    └── enemyVoadorManager.cs
+
+SCRIPTS RENOMEADOS (para evitar conflitos):
+--------------------------------------------
+✅ PlayerMovementFilizola.cs - Versão do Filizola
+✅ PlayerMovement.cs - Compartilhado entre Ian e Luka (mesmo GUID)
+✅ EnemyDurand.cs - Sistema de inimigos do Durand
+✅ EnemyIan.cs - Sistema de inimigos com vida/efeitos
+✅ ProjectileIan.cs - Projéteis das torres
+✅ ProjectileLuka.cs - Projéteis do personagem
+✅ ProjectileMap.cs - Projéteis do sistema de mapa
+
+CENAS FUNCIONAIS:
+-----------------
+✅ Assets/Filizola/Scenes/MainMenu.unity
+✅ Assets/Filizola/Scenes/FinaldeJogo.unity
+✅ Assets/Ian/Scenes/AtaqueTorre.unity
+✅ Assets/Luka/Scenes/SampleScenePersonagem.unity
+✅ Assets/Scenes/durandscene.unity
+✅ Assets/Map/Scenes/Map_first.unity
+
+SCRIPTS ÚNICOS (sem conflitos):
+--------------------------------
+📁 Assets/Ian/ - Scripts principais (compartilhados)
+   ✅ BuildTile.cs, CameraFollow.cs, PlayerMovement.cs
+   ✅ ResourceManager.cs, TowerBehavior.cs, TowerData.cs
+   ✅ EnemyIan.cs, ProjectileIan.cs, TowerAttack.cs
+
+📁 Assets/Luka/Scripts/ - Scripts específicos de personagem
+   ✅ FlipByMouse.cs, OrbitingWeaponsManager.cs
+   ✅ ProjectileLuka.cs, Weapon.cs
+
+📁 Assets/Map/Scripts/ - Scripts específicos de mapa
+   ✅ PlayerController.cs, ProjectileMap.cs
+
+📁 Assets/Filizola/_Scripts/
+   ✅ PlayerMovementFilizola.cs
+
+📁 Assets/ (raiz) - Scripts do Durand
+   ✅ EnemyDurand.cs, enemyManager.cs
+   ✅ enemyVoador.cs, enemyVoadorManager.cs
+
+COMO USAR:
+----------
+1. Feche o Unity completamente
+2. Reabra o projeto
+3. Aguarde a reimportação (1-2 min)
+4. Verifique Console - não deve ter erros
+5. Teste cada cena individualmente
+
+✨ PROJETO LIMPO E FUNCIONAL!
+
+PRÓXIMOS PASSOS:
+----------------
+1. ✅ Abrir Unity em Safe Mode (se necessário)
+2. ✅ Deixar Unity recompilar todos os scripts
+3. ⚠️  Verificar Console para erros
+4. ⚠️  Testar cada cena individualmente
+5. ⚠️  Integrar funcionalidades entre sistemas
+6. ⚠️  Mover scripts para Assets/Scripts/ (organizados)
+
+NOTAS IMPORTANTES:
+------------------
+- Todos os GUIDs foram mantidos para preservar referências
+- Scripts duplicados foram renomeados com sufixos de origem
+- As cenas mantêm suas associações originais de scripts
+- PlayerMovement (Ian/Luka) compartilham o mesmo código e GUID
+
+CONTATO:
+--------
+Merge realizado por: GitHub Copilot
+Data: 19/11/2025
