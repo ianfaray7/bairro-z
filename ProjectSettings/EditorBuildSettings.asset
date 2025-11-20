@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Filizola/Scenes/MainMenu.unity
+    guid: 3a23f1585be7870449c46c1ffd14d81c
+  - enabled: 1
+    path: Assets/Ian/Scenes/AtaqueTorre.unity
+    guid: e1c56858ec490cd4f9017c884f803039
+  - enabled: 1
+    path: Assets/Luka/Scenes/SampleScenePersonagem.unity
+    guid: d9319612214e6984db9a9b9a124055e0
+  - enabled: 1
+    path: Assets/Scenes/durandscene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Map/Scenes/Map_first.unity
+    guid: 12107e6ba829d254088bc2fddfc9b689
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
