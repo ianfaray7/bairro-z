@@ -55,6 +55,12 @@ public class BaseHealth : MonoBehaviour
     
     public void EnemyReachedBase()
     {
+        // 💔 Remove vida do jogador quando inimigo chega ao fim
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.LoseLife(1);
+        }
+        
         TakeDamage(damagePerEnemy);
     }
     

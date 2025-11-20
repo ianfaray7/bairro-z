@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86882229cfda13147b7b15055e77067b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 40
-  currentHealth: 40
+  maxHealth: 30
+  currentHealth: 30
   died: 0
 --- !u!58 &4790679715756449131
 CircleCollider2D:

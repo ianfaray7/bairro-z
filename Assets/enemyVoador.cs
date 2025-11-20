@@ -136,4 +136,24 @@ public class enemyVoador : MonoBehaviour
         speed = Mathf.Max(0f, speed);
     }
 #endif
+
+    /// <summary>
+    /// Aplica efeito de slow (redução de velocidade) ao inimigo
+    /// </summary>
+    public void ApplySlow(float slowAmount, float duration)
+    {
+        StartCoroutine(SlowCoroutine(slowAmount, duration));
+    }
+    
+    private System.Collections.IEnumerator SlowCoroutine(float slowAmount, float duration)
+    {
+        float originalSpeedValue = speed;
+        speed = originalSpeedValue * (1f - slowAmount);
+        
+        Debug.Log($"⚡ {gameObject.name} sofreu slow de {slowAmount * 100}% por {duration}s");
+        
+        yield return new WaitForSeconds(duration);
+        
+        speed = originalSpeedValue;
+    }
 }

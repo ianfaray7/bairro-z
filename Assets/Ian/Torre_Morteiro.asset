@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 1640652057195915706, guid: 7bef47e943819dd44b857b7cac01e4c3, type: 3}
   - {fileID: 4062925299272308809, guid: 02e5b48b6ac9b0c4699c6e22df0aa349, type: 3}
   statsPerLevel:
-  - damage: 15
+  - damage: 5
     attackSpeed: 0.5
     range: 6
     aoeRadius: 1.5
@@ -31,23 +31,23 @@ MonoBehaviour:
     slowDuration: 0
     projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
     projectileSpeed: 6
-  - damage: 20
-    attackSpeed: 0.6
+  - damage: 7.5
+    attackSpeed: 0.5
     range: 7
+    aoeRadius: 1.5
+    slowAmount: 0
+    slowDuration: 0
+    projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
+    projectileSpeed: 6
+  - damage: 7.5
+    attackSpeed: 0.75
+    range: 8
     aoeRadius: 2
     slowAmount: 0
     slowDuration: 0
     projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
     projectileSpeed: 6
-  - damage: 30
-    attackSpeed: 0.8
-    range: 8
-    aoeRadius: 2.5
-    slowAmount: 0
-    slowDuration: 0
-    projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
-    projectileSpeed: 6
-  - damage: 40
+  - damage: 7.5
     attackSpeed: 1
     range: 9
     aoeRadius: 3
@@ -55,16 +55,16 @@ MonoBehaviour:
     slowDuration: 0
     projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
     projectileSpeed: 6
-  - damage: 60
-    attackSpeed: 1.2
+  - damage: 10
+    attackSpeed: 1
     range: 10
     aoeRadius: 3.5
     slowAmount: 0
     slowDuration: 0
     projectilePrefab: {fileID: 1786605066081369330, guid: 0518cdcdeaf8bcc458ebbdef7dfadd9a, type: 3}
     projectileSpeed: 6
-  baseCost: 150
-  upgradeCosts: 4b000000640000007d000000c8000000
+  baseCost: 450
+  upgradeCosts: fa000000ef010000ee020000de030000
   description: 
   baseDamage: 30
   baseAttackRange: 5

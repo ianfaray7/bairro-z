@@ -309,6 +309,26 @@ public class TowerAttack : MonoBehaviour
             return;
         }
         
+        // Toca som de ataque baseado no tipo da torre
+        if (MapAudioManager.main != null)
+        {
+            switch (towerData.towerType)
+            {
+                case TowerType.Arqueira:
+                    MapAudioManager.main.PlayTowerArqueira();
+                    break;
+                case TowerType.Atirador:
+                    MapAudioManager.main.PlayTowerAtirador();
+                    break;
+                case TowerType.Morteiro:
+                    MapAudioManager.main.PlayTowerMorteiro();
+                    break;
+                case TowerType.Eletrica:
+                    MapAudioManager.main.PlayTowerEletrica();
+                    break;
+            }
+        }
+        
         // Instancia projétil na posição do firePoint
         GameObject projectileObj = Instantiate(currentStats.projectilePrefab, firePoint.position, Quaternion.identity);
         ProjectileIan projectile = projectileObj.GetComponent<ProjectileIan>();

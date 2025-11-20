@@ -18,6 +18,14 @@ public class MapAudioManager : MonoBehaviour
     public AudioClip bowClip;         // bow.mp3
     public AudioClip zumbiHitClip;    // zumbi_hit.mp3
     public AudioClip zumbiDeathClip;  // zumbi_death.mp3
+    
+    [Header("Tower SFX")]
+    public AudioClip towerArqueiraClip;  // Som da Torre Arqueira
+    public AudioClip towerAtiradorClip;  // Som da Torre Atirador
+    public AudioClip towerMorteiroClip;  // Som da Torre Morteiro
+    public AudioClip towerEletricaClip;  // Som da Torre Elétrica
+    public AudioClip towerUpgradeClip;   // Som de upgrade da torre
+    public AudioClip towerSellClip;      // Som de venda da torre
 
     [Header("SFX Master")]
     [Range(0f, 1f)] public float sfxMasterVolume = 0.9f;
@@ -26,6 +34,9 @@ public class MapAudioManager : MonoBehaviour
     [Range(0f, 1f)] public float bowVolume = 1f;
     [Range(0f, 1f)] public float zumbiHitVolume = 0.6f;
     [Range(0f, 1f)] public float zumbiDeathVolume = 0.6f;
+    [Range(0f, 1f)] public float towerAttackVolume = 0.7f;
+    [Range(0f, 1f)] public float towerUpgradeVolume = 0.8f;
+    [Range(0f, 1f)] public float towerSellVolume = 0.7f;
 
     AudioSource musicSource;
     AudioSource sfxSource;
@@ -110,4 +121,14 @@ public class MapAudioManager : MonoBehaviour
     public void PlayBow() => PlaySFX(bowClip, bowVolume);
     public void PlayZombieHit() => PlaySFX(zumbiHitClip, zumbiHitVolume);
     public void PlayZombieDeath() => PlaySFX(zumbiDeathClip, zumbiDeathVolume);
+    
+    // Tower attack sounds
+    public void PlayTowerArqueira() => PlaySFX(towerArqueiraClip, towerAttackVolume);
+    public void PlayTowerAtirador() => PlaySFX(towerAtiradorClip, towerAttackVolume);
+    public void PlayTowerMorteiro() => PlaySFX(towerMorteiroClip, towerAttackVolume);
+    public void PlayTowerEletrica() => PlaySFX(towerEletricaClip, towerAttackVolume);
+    
+    // Tower upgrade and sell sounds
+    public void PlayTowerUpgrade() => PlaySFX(towerUpgradeClip, towerUpgradeVolume);
+    public void PlayTowerSell() => PlaySFX(towerSellClip, towerSellVolume);
 }

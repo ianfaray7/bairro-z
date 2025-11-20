@@ -38,6 +38,23 @@ public class WaveManager : MonoBehaviour
     private int currentWaveIndex = 0;
     private int enemiesAlive = 0;
     private bool waveInProgress = false;
+    
+    // Singleton
+    public static WaveManager Instance { get; private set; }
+    
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            Debug.Log("✅ WaveManager Instance criado!");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ WaveManager duplicado! Destruindo...");
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {
@@ -59,6 +76,14 @@ public class WaveManager : MonoBehaviour
         {
             StartCoroutine(StartWavesWithDelay());
         }
+        else
+        {
+            // Se não auto-start, inicia o timer
+            if (WaveTimerUI.Instance != null)
+            {
+                WaveTimerUI.Instance.StartTimer();
+            }
+        }
     }
 
     private IEnumerator StartWavesWithDelay()
@@ -71,14 +96,37 @@ public class WaveManager : MonoBehaviour
     {
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.Log("Todas as waves completadas!");
+            Debug.Log("🎉 Todas as waves completadas! VITÓRIA!");
+            // Para o timer
+            if (WaveTimerUI.Instance != null)
+            {
+                WaveTimerUI.Instance.StopTimer();
+            }
             return;
         }
 
         waveInProgress = true;
         Wave currentWave = waves[currentWaveIndex];
         
-        Debug.Log($"Iniciando {currentWave.waveName}");
+        // 🌊 Notifica ResourceManager para dar recompensa e incrementar wave
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.StartNextWave();
+        }
+        
+        // 📢 Mostra popup de wave iniciando
+        if (WavePopup.Instance != null)
+        {
+            WavePopup.Instance.ShowWaveStartNow(currentWaveIndex + 1);
+        }
+        
+        // Para o timer durante a wave
+        if (WaveTimerUI.Instance != null)
+        {
+            WaveTimerUI.Instance.StopTimer();
+        }
+        
+        Debug.Log($"🌊 Iniciando {currentWave.waveName} (Wave {currentWaveIndex + 1})");
         
         StartCoroutine(SpawnWave(currentWave));
     }
@@ -119,20 +167,49 @@ public class WaveManager : MonoBehaviour
         Debug.Log($"Aguardando todos os inimigos morrerem. Atual: {enemiesAlive}");
         yield return new WaitUntil(() => enemiesAlive <= 0);
         
-        Debug.Log("Todos os inimigos foram derrotados!");
+        Debug.Log("✅ Todos os inimigos foram derrotados!");
+        
+        // 📢 Mostra popup de wave concluída
+        if (WavePopup.Instance != null)
+        {
+            WavePopup.Instance.ShowWaveComplete(currentWaveIndex + 1);
+        }
         
         waveInProgress = false;
         currentWaveIndex++;
 
         if (currentWaveIndex < waves.Length)
         {
-            Debug.Log($"Wave {currentWaveIndex} completa! Próxima wave ({waves[currentWaveIndex].waveName}) em {wave.delayBeforeNextWave}s");
-            yield return new WaitForSeconds(wave.delayBeforeNextWave);
-            StartNextWave();
+            Debug.Log($"✅ Wave {currentWaveIndex} completa! Timer iniciado para próxima wave.");
+            
+            // 🔔 Inicia o timer para a próxima wave
+            if (WaveTimerUI.Instance != null)
+            {
+                WaveTimerUI.Instance.OnWaveComplete();
+            }
+            else
+            {
+                // Fallback: se não houver timer, usa delay direto
+                Debug.LogWarning("WaveTimerUI não encontrado! Usando delay padrão.");
+                yield return new WaitForSeconds(wave.delayBeforeNextWave);
+                StartNextWave();
+            }
         }
         else
         {
-            Debug.Log("Todas as waves foram completadas! Vitória!");
+            Debug.Log("🏆 Todas as waves foram completadas! VITÓRIA!");
+            
+            // 📢 Mostra popup de vitória
+            if (WavePopup.Instance != null)
+            {
+                WavePopup.Instance.ShowVictory();
+            }
+            
+            // Para o timer
+            if (WaveTimerUI.Instance != null)
+            {
+                WaveTimerUI.Instance.StopTimer();
+            }
         }
     }
 
@@ -177,6 +254,30 @@ public class WaveManager : MonoBehaviour
         // Cleanup: desregistra eventos
         StopAllCoroutines();
     }
+    
+    #region Public Getters
+    
+    /// <summary>
+    /// Retorna se há uma wave em progresso
+    /// </summary>
+    public bool IsWaveInProgress() => waveInProgress;
+    
+    /// <summary>
+    /// Retorna o índice da wave atual (0-based)
+    /// </summary>
+    public int GetCurrentWaveIndex() => currentWaveIndex;
+    
+    /// <summary>
+    /// Retorna o número total de waves
+    /// </summary>
+    public int GetTotalWaves() => waves != null ? waves.Length : 0;
+    
+    /// <summary>
+    /// Retorna quantos inimigos ainda estão vivos
+    /// </summary>
+    public int GetEnemiesAlive() => enemiesAlive;
+    
+    #endregion
 
 #if UNITY_EDITOR
     void OnValidate()
