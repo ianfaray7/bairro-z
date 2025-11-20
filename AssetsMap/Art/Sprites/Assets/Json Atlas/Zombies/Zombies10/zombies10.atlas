@@ -1,0 +1,67 @@
+zombies10.png
+size:109,203
+filter:Linear,Linear
+pma:true
+Artboard 10
+bounds:2,117,54,36
+offsets:5,4,63,43
+Artboard 11
+bounds:62,116,48,41
+offsets:2,5,55,50
+rotate:90
+Artboard 7
+bounds:2,155,58,46
+offsets:5,3,67,51
+Artboard 8
+bounds:2,40,52,39
+offsets:4,3,57,46
+Artboard 9
+bounds:62,166,35,45
+offsets:2,4,41,52
+rotate:90
+Bg
+bounds:105,163,1,1
+bodyback
+bounds:56,43,33,48
+offsets:4,3,39,56
+rotate:90
+bodyfront
+bounds:2,81,34,53
+offsets:3,3,40,60
+rotate:90
+bodyside
+bounds:56,12,29,30
+offsets:3,2,34,35
+rotate:90
+handback1
+bounds:2,11,18,13
+offsets:2,1,22,16
+handback2
+bounds:22,5,17,14
+offsets:3,1,23,19
+handfront1
+bounds:88,10,14,18
+offsets:4,2,20,24
+rotate:90
+handfront2
+bounds:88,26,15,19
+offsets:5,3,22,26
+rotate:90
+handside
+bounds:2,26,12,26
+offsets:3,2,18,31
+rotate:90
+headside
+bounds:57,78,36,50
+offsets:3,2,40,53
+rotate:90
+leg1
+bounds:41,10,10,9
+offsets:3,3,15,16
+leg2
+bounds:2,2,7,10
+offsets:4,4,14,18
+rotate:90
+shade
+bounds:30,21,23,17
+offsets:4,2,31,21

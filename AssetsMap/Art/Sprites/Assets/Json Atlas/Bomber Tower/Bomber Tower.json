@@ -1,0 +1,1500 @@
+{
+"skeleton": {
+	"hash": "8ON5ebE0dpw",
+	"spine": "4.1.17",
+	"x": -50.51,
+	"y": 202.98,
+	"width": 252,
+	"height": 258,
+	"images": "./Images/",
+	"audio": ""
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "Shade", "parent": "root", "x": 65.29, "y": 291.36 },
+	{ "name": "Bomber", "parent": "root", "length": 33.33, "rotation": 89.36, "x": 66.41, "y": 297.29 },
+	{ "name": "Head", "parent": "root", "length": 17.48, "rotation": 82.28, "x": 98.91, "y": 283.08 },
+	{ "name": "Hand", "parent": "root", "length": 7.57, "rotation": -144.46, "x": 104.19, "y": 281.02 },
+	{ "name": "Antena", "parent": "root", "length": 18.82, "rotation": 169.22, "x": 53.71, "y": 280.14 }
+],
+"slots": [
+	{ "name": "Base1", "bone": "root", "attachment": "Base1" },
+	{ "name": "shade", "bone": "Shade", "attachment": "shade" },
+	{ "name": "Bomb01", "bone": "Bomber", "attachment": "Bomb01" },
+	{ "name": "Chair1", "bone": "root", "attachment": "Chair2" },
+	{ "name": "Hand", "bone": "Hand", "attachment": "Hand" },
+	{ "name": "Head", "bone": "Head", "attachment": "Head" },
+	{ "name": "Antena", "bone": "Antena" },
+	{ "name": "Box", "bone": "root", "attachment": "Box" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"Antena": {
+				"Antena": { "x": 16, "y": -0.25, "rotation": -169.22, "width": 50, "height": 58 }
+			},
+			"Base1": {
+				"Base1": { "x": 67, "y": 300, "width": 152, "height": 139 },
+				"Base2": { "x": 66.45, "y": 298.98, "width": 152, "height": 139 },
+				"Base3": { "x": 65.3, "y": 300.14, "width": 151, "height": 139 },
+				"Base4": { "x": 66.77, "y": 300.14, "width": 150, "height": 138 }
+			},
+			"Bomb01": {
+				"Bomb01": { "x": 38.14, "y": -0.4, "rotation": -89.36, "width": 117, "height": 120 },
+				"Bomb02": { "x": 38.15, "y": -1.26, "rotation": -89.36, "width": 117, "height": 120 },
+				"Bomb03": { "x": 42.02, "y": -1.22, "rotation": -89.36, "width": 119, "height": 137 },
+				"Bomb04": { "x": 42.88, "y": -0.78, "rotation": -89.36, "width": 120, "height": 137 },
+				"Bomb05": { "x": 45.89, "y": -0.75, "rotation": -89.36, "width": 120, "height": 137 }
+			},
+			"Box": {
+				"Box": { "x": 75.49, "y": 331.98, "width": 252, "height": 258 }
+			},
+			"Chair1": {
+				"Chair1": { "x": 92.39, "y": 270.05, "width": 123, "height": 97 },
+				"Chair2": { "x": 92.14, "y": 269.95, "width": 122, "height": 96 },
+				"Chair3": { "x": 86.93, "y": 268.61, "width": 123, "height": 97 }
+			},
+			"Hand": {
+				"Hand": { "x": 3.71, "y": -0.34, "rotation": 144.46, "width": 21, "height": 20 }
+			},
+			"Head": {
+				"Head": { "x": 16.2, "y": 0.11, "rotation": -82.28, "width": 47, "height": 49 }
+			},
+			"shade": {
+				"shade": { "x": 1.51, "y": 22.12, "width": 107, "height": 89 }
+			}
+		}
+	}
+],
+"animations": {
+	"Tower Bomb Lv01_Idle": {
+		"slots": {
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair1" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 6.05 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": -10.26, "curve": "stepped" },
+					{ "time": 0.3333, "y": -10.26 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 11.39 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": -9.77, "curve": "stepped" },
+					{ "time": 0.3333, "y": -9.77 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv01_Shoot": {
+		"slots": {
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair1" },
+					{ "time": 0.3333, "name": "Chair1" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 1.105, "y": 1.105 },
+					{ "time": 0.3333, "x": 0.803, "y": 0.803 },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": -2.48 },
+					{ "time": 0.3333, "y": 14.37 },
+					{ "time": 0.5, "y": 13.88 },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.901 },
+					{ "time": 0.3333, "y": 0.881 },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": 14.22 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": -10.26, "curve": "stepped" },
+					{ "time": 0.3333, "y": -10.26, "curve": "stepped" },
+					{ "time": 0.6667, "y": -10.26 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": -30.94 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": -9.77, "curve": "stepped" },
+					{ "time": 0.3333, "y": -9.77, "curve": "stepped" },
+					{ "time": 0.6667, "y": -9.77 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv02_Idle": {
+		"slots": {
+			"Base1": {
+				"attachment": [
+					{ "name": "Base1" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb02" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 6.05 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 0.5, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.5 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 11.39 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 1.29, "curve": "stepped" },
+					{ "time": 0.3333, "y": 1.29 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv02_Shoot": {
+		"slots": {
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb02" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" },
+					{ "time": 0.3333, "name": "Chair2" },
+					{ "time": 0.6667, "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 1.105, "y": 1.105 },
+					{ "time": 0.3333, "x": 0.803, "y": 0.803 },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": -2.48 },
+					{ "time": 0.3333, "y": 14.37 },
+					{ "time": 0.5, "y": 13.88 },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.901 },
+					{ "time": 0.3333, "y": 0.881 },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": 7.28 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.33, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.33, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.33 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": -16.89 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.6, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.6, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.6 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv03_Idle": {
+		"slots": {
+			"Base1": {
+				"attachment": [
+					{ "name": "Base2" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb03" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{}
+				],
+				"translate": [
+					{}
+				],
+				"scale": [
+					{}
+				],
+				"shear": [
+					{}
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 6.05 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 0.5, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.5 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 11.39 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 1.29, "curve": "stepped" },
+					{ "time": 0.3333, "y": 1.29 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv03_Shoot": {
+		"slots": {
+			"Base1": {
+				"attachment": [
+					{ "name": "Base2" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb03" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" },
+					{ "time": 0.3333, "name": "Chair2" },
+					{ "time": 0.6667, "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 1.105, "y": 1.105 },
+					{ "time": 0.3333, "x": 0.803, "y": 0.803 },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.1667, "y": -2.48 },
+					{ "time": 0.3333, "y": 14.37 },
+					{ "time": 0.5, "y": 13.88 },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.901 },
+					{ "time": 0.3333, "y": 0.881 },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": 7.28 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.33, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.33, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.33 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": -16.89 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.6, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.6, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.6 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv04_Idle": {
+		"slots": {
+			"Base1": {
+				"attachment": [
+					{ "name": "Base3" },
+					{ "time": 0.3333, "name": "Base3" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb04" },
+					{ "time": 0.3333, "name": "Bomb04" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" },
+					{ "time": 0.3333, "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 13.76, "curve": "stepped" },
+					{ "time": 0.3333, "y": 13.76 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 16.19, "curve": "stepped" },
+					{ "time": 0.3333, "y": 16.19 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 6.05 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 0.5, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.5 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 11.39 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 1.29, "curve": "stepped" },
+					{ "time": 0.3333, "y": 1.29 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv04_Shoot": {
+		"slots": {
+			"Base1": {
+				"attachment": [
+					{ "name": "Base3" },
+					{ "time": 0.6667, "name": "Base3" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb04" },
+					{ "time": 0.6667, "name": "Bomb04" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair2" },
+					{ "time": 0.3333, "name": "Chair2" },
+					{ "time": 0.6667, "name": "Chair2" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 14.23 },
+					{ "time": 0.1667, "y": 10.66 },
+					{ "time": 0.3333, "y": 15.53 },
+					{ "time": 0.6667, "y": 14.23 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 1.105, "y": 1.105 },
+					{ "time": 0.3333, "x": 0.803, "y": 0.803 },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 15.81 },
+					{ "time": 0.1667, "y": 10.84 },
+					{ "time": 0.3333, "y": 26.8 },
+					{ "time": 0.5, "y": 26.22 },
+					{ "time": 0.6667, "y": 15.81 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.901 },
+					{ "time": 0.3333, "y": 0.881 },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": 7.28 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.33, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.33, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.33 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": -16.89 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.6, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.6, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.6 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv05_Idle": {
+		"slots": {
+			"Antena": {
+				"attachment": [
+					{ "name": "Antena" },
+					{ "time": 0.3333, "name": "Antena" }
+				]
+			},
+			"Base1": {
+				"attachment": [
+					{ "name": "Base4" },
+					{ "time": 0.3333, "name": "Base4" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb05" },
+					{ "time": 0.3333, "name": "Bomb05" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair3" },
+					{ "time": 0.3333, "name": "Chair3" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 13.76, "curve": "stepped" },
+					{ "time": 0.3333, "y": 13.76 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 16.19, "curve": "stepped" },
+					{ "time": 0.3333, "y": 16.19 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 6.05 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 0.5, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.5 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": 11.39 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "y": 1.29, "curve": "stepped" },
+					{ "time": 0.3333, "y": 1.29 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{},
+					{ "time": 0.1667, "value": -5.76 },
+					{ "time": 0.3333 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333 }
+				]
+			}
+		}
+	},
+	"Tower Bomb Lv05_Shoot": {
+		"slots": {
+			"Antena": {
+				"attachment": [
+					{ "name": "Antena" },
+					{ "time": 0.6667, "name": "Antena" }
+				]
+			},
+			"Base1": {
+				"attachment": [
+					{ "name": "Base4" },
+					{ "time": 0.6667, "name": "Base4" }
+				]
+			},
+			"Bomb01": {
+				"attachment": [
+					{ "name": "Bomb05" },
+					{ "time": 0.6667, "name": "Bomb05" }
+				]
+			},
+			"Chair1": {
+				"attachment": [
+					{ "name": "Chair3" },
+					{ "time": 0.3333, "name": "Chair3" },
+					{ "time": 0.6667, "name": "Chair3" }
+				]
+			}
+		},
+		"bones": {
+			"root": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Shade": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 14.23 },
+					{ "time": 0.1667, "y": 10.66 },
+					{ "time": 0.3333, "y": 15.53 },
+					{ "time": 0.6667, "y": 14.23 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 1.105, "y": 1.105 },
+					{ "time": 0.3333, "x": 0.803, "y": 0.803 },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Bomber": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 15.81 },
+					{ "time": 0.1667, "y": 10.84 },
+					{ "time": 0.3333, "y": 26.8 },
+					{ "time": 0.5, "y": 26.22 },
+					{ "time": 0.6667, "y": 15.81 }
+				],
+				"scale": [
+					{},
+					{ "time": 0.1667, "x": 0.901 },
+					{ "time": 0.3333, "y": 0.881 },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.5, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Head": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": 7.28 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.33, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.33, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.33 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Hand": {
+				"rotate": [
+					{},
+					{ "time": 0.3333, "value": -16.89 },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "y": 0.6, "curve": "stepped" },
+					{ "time": 0.3333, "y": 0.6, "curve": "stepped" },
+					{ "time": 0.6667, "y": 0.6 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			},
+			"Antena": {
+				"rotate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"translate": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"scale": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				],
+				"shear": [
+					{ "curve": "stepped" },
+					{ "time": 0.3333, "curve": "stepped" },
+					{ "time": 0.6667 }
+				]
+			}
+		}
+	}
+}
+}

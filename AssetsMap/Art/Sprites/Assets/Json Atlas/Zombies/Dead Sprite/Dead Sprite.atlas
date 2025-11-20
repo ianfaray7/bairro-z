@@ -1,0 +1,11 @@
+Dead Sprite.png
+size:153,106
+filter:Linear,Linear
+pma:true
+Splash
+bounds:2,2,102,102
+offsets:6,6,115,114
+fx
+bounds:106,58,46,45
+offsets:7,6,59,60
+rotate:90
