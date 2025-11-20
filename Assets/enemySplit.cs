@@ -165,6 +165,13 @@ public class EnemySplit : MonoBehaviour, IEnemy
     {
         if (isDead) return;
         isDead = true;
+        
+        // 💰 Dar recompensa de moedas ao jogador (inimigo que se divide)
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnSplitEnemyKilled();
+        }
+        
         // stop movement
         rb.linearVelocity = Vector2.zero;
         // tocar som de death
@@ -196,4 +203,28 @@ public class EnemySplit : MonoBehaviour, IEnemy
         maxHealth = Mathf.Max(1f, maxHealth);
     }
 #endif
+
+    /// <summary>
+    /// Aplica efeito de slow (redução de velocidade) ao inimigo
+    /// </summary>
+    public void ApplySlow(float slowAmount, float duration)
+    {
+        if (isDead) return;
+        StartCoroutine(SlowCoroutine(slowAmount, duration));
+    }
+    
+    private System.Collections.IEnumerator SlowCoroutine(float slowAmount, float duration)
+    {
+        float originalSpeedValue = speed;
+        speed = originalSpeedValue * (1f - slowAmount);
+        
+        Debug.Log($"⚡ {gameObject.name} sofreu slow de {slowAmount * 100}% por {duration}s");
+        
+        yield return new WaitForSeconds(duration);
+        
+        if (!isDead)
+        {
+            speed = originalSpeedValue;
+        }
+    }
 }

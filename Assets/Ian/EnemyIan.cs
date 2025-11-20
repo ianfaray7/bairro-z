@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyIan : MonoBehaviour, IEnemy
 {
     [Header("Stats")]
-    [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private float maxHealth = 15f;
     [SerializeField] private float moveSpeed = 0.2f;
     
     [Header("Movimento de Teste")]
@@ -149,7 +149,12 @@ public class EnemyIan : MonoBehaviour, IEnemy
         isDead = true;
         Debug.Log($"{gameObject.name} morreu!");
         
-        // TODO: Animação de morte, dropar dinheiro, etc
+        // 💰 Dar recompensa de moedas ao jogador
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnNormalEnemyKilled();
+        }
+        
         // toca som de morte
         if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieDeath();
         Destroy(gameObject, 0.1f);

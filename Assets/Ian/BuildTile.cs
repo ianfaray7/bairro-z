@@ -116,6 +116,12 @@ public class BuildTile : MonoBehaviour
         
         Debug.Log($"Torre vendida em {transform.position} por ${sellPrice}");
         
+        // Toca som de venda
+        if (MapAudioManager.main != null)
+        {
+            MapAudioManager.main.PlayTowerSell();
+        }
+        
         // Destroi o GameObject da torre
         if (currentTowerObject != null)
         {
@@ -225,6 +231,13 @@ public class BuildTile : MonoBehaviour
         
         currentTowerLevel++;
         Debug.Log($"Torre em {transform.position} upgradada para nível {currentTowerLevel + 1}!");
+        
+        // Toca som de upgrade
+        if (MapAudioManager.main != null)
+        {
+            MapAudioManager.main.PlayTowerUpgrade();
+        }
+        
         HideSellUI();
         
         // Atualiza o visual da torre

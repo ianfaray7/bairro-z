@@ -7,4 +7,7 @@ public interface IEnemy
     
     // aplica dano ao inimigo
     void TakeDamage(float damage);
+    
+    // aplica efeito de slow (velocidade reduzida temporariamente)
+    void ApplySlow(float slowAmount, float duration);
 }

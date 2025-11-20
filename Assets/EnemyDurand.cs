@@ -13,6 +13,11 @@ public class EnemyDurand : MonoBehaviour, IEnemy
 
     private int index = 0;
     private Transform checkpoint;
+    
+    // Slow effect
+    private float originalSpeed;
+    private float slowEndTime = 0f;
+    private bool isSlowed = false;
 
     [Header("Animator State Names")]
     public string stateWalkUp = "WalkUp";
@@ -24,7 +29,7 @@ public class EnemyDurand : MonoBehaviour, IEnemy
     private int currentStateHash = 0;
 
     [Header("Stats")]
-    public float maxHealth = 10f;
+    public float maxHealth = 15f;
     private float currentHealth;
     private bool isDead = false;
 
@@ -49,6 +54,7 @@ public class EnemyDurand : MonoBehaviour, IEnemy
             return;
         }
 
+        originalSpeed = speed;
         index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
         checkpoint = enemyManager.main.checkpoints[index];
 
@@ -68,6 +74,13 @@ public class EnemyDurand : MonoBehaviour, IEnemy
         }
 
         if (checkpoint == null) return;
+        
+        // Verifica se o efeito de slow terminou
+        if (isSlowed && Time.time >= slowEndTime)
+        {
+            speed = originalSpeed;
+            isSlowed = false;
+        }
 
         // Chegou no checkpoint atual?
         if (Vector2.Distance(transform.position, checkpoint.position) <= arriveTolerance)
@@ -165,6 +178,13 @@ public class EnemyDurand : MonoBehaviour, IEnemy
     {
         if (isDead) return;
         isDead = true;
+        
+        // 💰 Dar recompensa de moedas ao jogador
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnNormalEnemyKilled();
+        }
+        
         // stop movement
         rb.linearVelocity = Vector2.zero;
         // tocar som de death
@@ -175,6 +195,34 @@ public class EnemyDurand : MonoBehaviour, IEnemy
 
     // IEnemy compatibility
     public bool IsDead() => isDead;
+    
+    /// <summary>
+    /// Aplica efeito de slow (redução de velocidade) ao inimigo
+    /// </summary>
+    /// <param name="slowAmount">Percentual de redução (0.3 = 30% mais lento)</param>
+    /// <param name="duration">Duração do efeito em segundos</param>
+    public void ApplySlow(float slowAmount, float duration)
+    {
+        if (isDead) return;
+        
+        // Reduz velocidade temporariamente
+        StartCoroutine(SlowCoroutine(slowAmount, duration));
+    }
+    
+    private System.Collections.IEnumerator SlowCoroutine(float slowAmount, float duration)
+    {
+        float originalSpeedValue = speed;
+        speed = originalSpeedValue * (1f - slowAmount);
+        
+        Debug.Log($"⚡ {gameObject.name} sofreu slow de {slowAmount * 100}% por {duration}s");
+        
+        yield return new WaitForSeconds(duration);
+        
+        if (!isDead)
+        {
+            speed = originalSpeedValue;
+        }
+    }
 
     private void PlayIfDifferent(string stateName)
     {

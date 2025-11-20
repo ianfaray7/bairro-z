@@ -64,68 +64,71 @@ public class TowerBuildUI_NOVO : MonoBehaviour
     {
         // 🎨 SPRITES DISPONÍVEL/INDISPONÍVEL:
         // Cada TowerData tem 2 sprites: towerIconAvailable (aceso) e towerIconUnavailable (apagado)
-        // POR ENQUANTO: Sempre usa towerIconAvailable (sempre pode comprar)
-        // FUTURO: Quando implementar moedas, checar se PlayerMoney >= baseCost
-        //         Se SIM: usar towerIconAvailable
-        //         Se NÃO: usar towerIconUnavailable
+        // Verifica o dinheiro do jogador para decidir qual ícone mostrar
+        
+        int currentMoney = ResourceManager.Instance != null ? ResourceManager.Instance.GetCurrentMoney() : 0;
         
         // Atualiza Torre 1 (Arqueira)
         if (torreArqueira != null)
         {
-            if (icon1 != null && torreArqueira.towerIconAvailable != null)
+            bool canAfford = currentMoney >= torreArqueira.baseCost;
+            if (icon1 != null)
             {
-                // TODO: Quando implementar moedas, trocar para:
-                // icon1.sprite = (PlayerMoney >= torreArqueira.baseCost) 
-                //     ? torreArqueira.towerIconAvailable 
-                //     : torreArqueira.towerIconUnavailable;
-                icon1.sprite = torreArqueira.towerIconAvailable; // Sempre aceso por enquanto
+                icon1.sprite = canAfford ? torreArqueira.towerIconAvailable : torreArqueira.towerIconUnavailable;
                 icon1.color = Color.white;
             }
             if (priceText1 != null)
             {
                 priceText1.text = $"${torreArqueira.baseCost}";
+                priceText1.color = canAfford ? Color.white : new Color(1f, 0.5f, 0.5f); // Vermelho claro se não pode comprar
             }
         }
         
         // Atualiza Torre 2 (Morteiro)
         if (torreMorteiro != null)
         {
-            if (icon2 != null && torreMorteiro.towerIconAvailable != null)
+            bool canAfford = currentMoney >= torreMorteiro.baseCost;
+            if (icon2 != null)
             {
-                icon2.sprite = torreMorteiro.towerIconAvailable; // Sempre aceso por enquanto
+                icon2.sprite = canAfford ? torreMorteiro.towerIconAvailable : torreMorteiro.towerIconUnavailable;
                 icon2.color = Color.white;
             }
             if (priceText2 != null)
             {
                 priceText2.text = $"${torreMorteiro.baseCost}";
+                priceText2.color = canAfford ? Color.white : new Color(1f, 0.5f, 0.5f);
             }
         }
         
         // Atualiza Torre 3 (Atirador)
         if (torreAtirador != null)
         {
-            if (icon3 != null && torreAtirador.towerIconAvailable != null)
+            bool canAfford = currentMoney >= torreAtirador.baseCost;
+            if (icon3 != null)
             {
-                icon3.sprite = torreAtirador.towerIconAvailable; // Sempre aceso por enquanto
+                icon3.sprite = canAfford ? torreAtirador.towerIconAvailable : torreAtirador.towerIconUnavailable;
                 icon3.color = Color.white;
             }
             if (priceText3 != null)
             {
                 priceText3.text = $"${torreAtirador.baseCost}";
+                priceText3.color = canAfford ? Color.white : new Color(1f, 0.5f, 0.5f);
             }
         }
         
         // Atualiza Torre 4 (Elétrica)
         if (torreEletrica != null)
         {
-            if (icon4 != null && torreEletrica.towerIconAvailable != null)
+            bool canAfford = currentMoney >= torreEletrica.baseCost;
+            if (icon4 != null)
             {
-                icon4.sprite = torreEletrica.towerIconAvailable; // Sempre aceso por enquanto
+                icon4.sprite = canAfford ? torreEletrica.towerIconAvailable : torreEletrica.towerIconUnavailable;
                 icon4.color = Color.white;
             }
             if (priceText4 != null)
             {
                 priceText4.text = $"${torreEletrica.baseCost}";
+                priceText4.color = canAfford ? Color.white : new Color(1f, 0.5f, 0.5f);
             }
         }
     }
@@ -140,6 +143,9 @@ public class TowerBuildUI_NOVO : MonoBehaviour
         
         // Mostra os 4 botões de torre
         ShowTowerButtons(true);
+        
+        // Atualiza os ícones baseado no dinheiro atual
+        UpdateTowerButtons();
         
         // Ajusta tamanho do painel para 4 torres (largo)
         ResizeBuildPanel(520, 140);

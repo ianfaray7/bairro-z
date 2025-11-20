@@ -169,14 +169,13 @@ public class ProjectileIan : MonoBehaviour
         var ie = targetTransform.GetComponent<IEnemy>();
         if (ie != null && !ie.IsDead())
         {
-            // Use interface para aplicar dano
+            // Aplica dano usando interface
             ie.TakeDamage(damage);
 
-            // Aplica slow específicamente se tiver ApplySlow (apenas EnemyIan implementa)
-            EnemyIan eIan = targetTransform.GetComponent<EnemyIan>();
-            if (eIan != null && slowAmount > 0 && slowDuration > 0)
+            // Aplica slow se configurado (Torre Elétrica)
+            if (slowAmount > 0 && slowDuration > 0)
             {
-                eIan.ApplySlow(slowAmount, slowDuration);
+                ie.ApplySlow(slowAmount, slowDuration);
             }
         }
     }
