@@ -165,17 +165,18 @@ public class ProjectileIan : MonoBehaviour
     void DamageTarget(Transform targetTransform)
     {
         if (targetTransform == null) return;
-        
-        EnemyIan enemy = targetTransform.GetComponent<EnemyIan>();
-        if (enemy != null && !enemy.IsDead())
+        // Tenta interface IEnemy para danificar qualquer inimigo
+        var ie = targetTransform.GetComponent<IEnemy>();
+        if (ie != null && !ie.IsDead())
         {
-            // Causa dano (já aciona o flash vermelho automaticamente)
-            enemy.TakeDamage(damage);
-            
-            // Aplica slow (elétrica)
-            if (slowAmount > 0 && slowDuration > 0)
+            // Use interface para aplicar dano
+            ie.TakeDamage(damage);
+
+            // Aplica slow específicamente se tiver ApplySlow (apenas EnemyIan implementa)
+            EnemyIan eIan = targetTransform.GetComponent<EnemyIan>();
+            if (eIan != null && slowAmount > 0 && slowDuration > 0)
             {
-                enemy.ApplySlow(slowAmount, slowDuration);
+                eIan.ApplySlow(slowAmount, slowDuration);
             }
         }
     }

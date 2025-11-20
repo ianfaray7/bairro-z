@@ -4,7 +4,7 @@ using UnityEngine;
 /// Componente para zumbis/inimigos
 /// Gerencia vida, morte e efeitos (slow)
 /// </summary>
-public class EnemyIan : MonoBehaviour
+public class EnemyIan : MonoBehaviour, IEnemy
 {
     [Header("Stats")]
     [SerializeField] private float maxHealth = 100f;
@@ -109,6 +109,11 @@ public class EnemyIan : MonoBehaviour
         {
             Die();
         }
+        else
+        {
+            // som de hit
+            if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieHit();
+        }
     }
     
     /// <summary>
@@ -145,6 +150,8 @@ public class EnemyIan : MonoBehaviour
         Debug.Log($"{gameObject.name} morreu!");
         
         // TODO: Animação de morte, dropar dinheiro, etc
+        // toca som de morte
+        if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieDeath();
         Destroy(gameObject, 0.1f);
     }
     
@@ -154,4 +161,5 @@ public class EnemyIan : MonoBehaviour
     public bool IsDead() => isDead;
     public float GetCurrentMoveSpeed() => currentMoveSpeed;
     public float GetSlowEffect() => slowEffect;
+    // IEnemy compatibility already provided by IsDead()
 }

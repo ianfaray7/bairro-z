@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-public class EnemyDurand : MonoBehaviour
+public class EnemyDurand : MonoBehaviour, IEnemy
 {
     [Header("Path/Movement")]
     public float speed = 2f;
@@ -23,10 +23,21 @@ public class EnemyDurand : MonoBehaviour
     // cache pra evitar re-tocar o mesmo estado a cada frame
     private int currentStateHash = 0;
 
+    [Header("Stats")]
+    public float maxHealth = 10f;
+    private float currentHealth;
+    private bool isDead = false;
+
+    // efeito visual
+    private SpriteRenderer spriteRenderer;
+    private Color originalColor;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null) originalColor = spriteRenderer.color;
     }
 
     void Start()
@@ -72,6 +83,31 @@ public class EnemyDurand : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Aplica dano ao inimigo (pode ser chamado via SendMessage)
+    /// </summary>
+    public void TakeDamage(float damage)
+    {
+        if (isDead) return;
+
+        // inicializa vida se necessário
+        if (currentHealth <= 0f) currentHealth = maxHealth;
+        currentHealth -= damage;
+
+        // efeito visual
+        if (spriteRenderer != null)
+        {
+            StopCoroutine("FlashRed");
+            StartCoroutine(FlashRed());
+        }
+
+        // toca som de hit
+        if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieHit();
+
+        if (currentHealth <= 0f) Die();
+    }
+
+
     void FixedUpdate()
     {
         if (checkpoint == null)
@@ -111,6 +147,29 @@ public class EnemyDurand : MonoBehaviour
         PlayIfDifferent(targetState);
     }
 
+    private System.Collections.IEnumerator FlashRed()
+    {
+        if (spriteRenderer == null) yield break;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        spriteRenderer.color = originalColor;
+    }
+
+    void Die()
+    {
+        if (isDead) return;
+        isDead = true;
+        // stop movement
+        rb.linearVelocity = Vector2.zero;
+        // tocar som de death
+        if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieDeath();
+        // desativa objeto com pequeno delay para animação
+        Destroy(gameObject, 0.1f);
+    }
+
+    // IEnemy compatibility
+    public bool IsDead() => isDead;
+
     private void PlayIfDifferent(string stateName)
     {
         int hash = Animator.StringToHash(stateName);
@@ -128,6 +187,7 @@ public class EnemyDurand : MonoBehaviour
         if (!anim) anim = GetComponent<Animator>();
         arriveTolerance = Mathf.Max(0.01f, arriveTolerance);
         speed = Mathf.Max(0f, speed);
+        maxHealth = Mathf.Max(1f, maxHealth);
     }
 #endif
 }

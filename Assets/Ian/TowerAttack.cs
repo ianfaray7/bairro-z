@@ -28,8 +28,8 @@ public class TowerAttack : MonoBehaviour
     // Estado
     private TowerStats currentStats;
     private float attackCooldown = 0f;
-    private EnemyIan currentTarget;
-    private List<EnemyIan> enemiesInRange = new List<EnemyIan>();
+    private IEnemy currentTarget;
+    private List<IEnemy> enemiesInRange = new List<IEnemy>();
     
     void Start()
     {
@@ -86,18 +86,21 @@ public class TowerAttack : MonoBehaviour
         
         // Limpa lista e adiciona novos inimigos
         enemiesInRange.Clear();
-        EnemyIan closestEnemy = null;
+        IEnemy closestEnemy = null;
         float closestDistance = Mathf.Infinity;
         
         foreach (Collider2D hit in hits)
         {
-            EnemyIan enemy = hit.GetComponent<EnemyIan>();
+            // tenta interface IEnemy (qualquer inimigo que implemente IsDead())
+            IEnemy enemy = hit.GetComponent<IEnemy>();
             if (enemy != null && !enemy.IsDead())
             {
                 enemiesInRange.Add(enemy);
                 
                 // Encontra o mais próximo
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
+                // transform não faz parte da interface - cast para MonoBehaviour
+                var enemyTransform = ((MonoBehaviour)enemy).transform;
+                float distance = Vector2.Distance(transform.position, enemyTransform.position);
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
@@ -211,7 +214,8 @@ public class TowerAttack : MonoBehaviour
         if (currentTarget == null || shooterAnimator == null) return;
         
         // Calcula direção do inimigo em relação à torre
-        Vector2 direction = (currentTarget.transform.position - transform.position).normalized;
+        var currentTransform = ((MonoBehaviour)currentTarget).transform;
+        Vector2 direction = (currentTransform.position - transform.position).normalized;
         
         // Calcula ângulo em graus
         // Atan2 retorna: 0°=Direita, 90°=Cima, -90°=Baixo, 180°=Esquerda
@@ -304,7 +308,7 @@ public class TowerAttack : MonoBehaviour
         if (projectile != null)
         {
             // Configura o projétil
-            projectile.Setup(currentTarget.transform, currentStats.damage, currentStats.projectileSpeed, currentStats);
+            projectile.Setup(((MonoBehaviour)currentTarget).transform, currentStats.damage, currentStats.projectileSpeed, currentStats);
             projectile.SetEnemyLayer(enemyLayer);
             
             // Configurações especiais por tipo de torre
@@ -324,7 +328,7 @@ public class TowerAttack : MonoBehaviour
                     break;
             }
             
-            Debug.Log($"{towerData.towerName} disparou projétil contra {currentTarget.name}");
+            Debug.Log($"{towerData.towerName} disparou projétil contra {((MonoBehaviour)currentTarget).name}");
         }
         else
         {
@@ -372,14 +376,14 @@ public class TowerAttack : MonoBehaviour
         if (currentStats.aoeRadius > 0 && currentTarget != null)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(currentTarget.transform.position, currentStats.aoeRadius);
+            Gizmos.DrawWireSphere(((MonoBehaviour)currentTarget).transform.position, currentStats.aoeRadius);
         }
         
         // Linha para o alvo
         if (currentTarget != null)
         {
             Gizmos.color = Color.green;
-            Gizmos.DrawLine(transform.position, currentTarget.transform.position);
+            Gizmos.DrawLine(transform.position, ((MonoBehaviour)currentTarget).transform.position);
         }
     }
 }
