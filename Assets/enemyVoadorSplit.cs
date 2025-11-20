@@ -64,6 +64,12 @@ public class enemyVoadorSplit : MonoBehaviour
             index++;
             if (index >= enemyVoadorSplitManager.main.checkpoints.Length)
             {
+                // Chegou no fim - causa dano à base
+                if (BaseHealth.instance != null)
+                {
+                    BaseHealth.instance.EnemyReachedBase();
+                }
+                
                 rb.linearVelocity = Vector2.zero;
                 Destroy(gameObject);
                 return;

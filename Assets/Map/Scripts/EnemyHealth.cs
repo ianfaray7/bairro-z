@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 /// <summary>
 /// Simples componente de HP que pode ser adicionado aos prefabs de inimigos do Map
@@ -10,6 +11,9 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     public float maxHealth = 10f;
     public float currentHealth;
     public bool died = false;
+
+    // Evento para notificar quando o inimigo morrer
+    public event Action OnDeath;
 
     void Start()
     {
@@ -30,6 +34,10 @@ public class EnemyHealth : MonoBehaviour, IEnemy
     {
         died = true;
         if (MapAudioManager.main != null) MapAudioManager.main.PlayZombieDeath();
+        
+        // Dispara o evento antes de destruir
+        OnDeath?.Invoke();
+        
         Destroy(gameObject, 0.1f);
     }
 

@@ -301,6 +301,14 @@ public class TowerAttack : MonoBehaviour
     {
         if (currentTarget == null || currentStats.projectilePrefab == null) return;
         
+        // Verifica se o alvo ainda existe (pode ter sido destruído durante o delay da animação)
+        MonoBehaviour targetBehaviour = (MonoBehaviour)currentTarget;
+        if (targetBehaviour == null || targetBehaviour.gameObject == null)
+        {
+            currentTarget = null;
+            return;
+        }
+        
         // Instancia projétil na posição do firePoint
         GameObject projectileObj = Instantiate(currentStats.projectilePrefab, firePoint.position, Quaternion.identity);
         ProjectileIan projectile = projectileObj.GetComponent<ProjectileIan>();
@@ -308,7 +316,7 @@ public class TowerAttack : MonoBehaviour
         if (projectile != null)
         {
             // Configura o projétil
-            projectile.Setup(((MonoBehaviour)currentTarget).transform, currentStats.damage, currentStats.projectileSpeed, currentStats);
+            projectile.Setup(targetBehaviour.transform, currentStats.damage, currentStats.projectileSpeed, currentStats);
             projectile.SetEnemyLayer(enemyLayer);
             
             // Configurações especiais por tipo de torre
@@ -328,7 +336,7 @@ public class TowerAttack : MonoBehaviour
                     break;
             }
             
-            Debug.Log($"{towerData.towerName} disparou projétil contra {((MonoBehaviour)currentTarget).name}");
+            Debug.Log($"{towerData.towerName} disparou projétil contra {targetBehaviour.name}");
         }
         else
         {
