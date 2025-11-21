@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -13,6 +14,11 @@ public class EnemyDurand : MonoBehaviour, IEnemy
 
     private int index = 0;
     private Transform checkpoint;
+    [Header("Path Options")]
+    [Tooltip("If true, this enemy will use the split path manager (enemySplitManager) instead of the normal enemyManager. Useful for Map_split.")]
+    public bool useSplitPath = false;
+    [Tooltip("If true and the current scene is 'Map_split', this enemy will use the split path automatically.")]
+    public bool preferSplitOnSplitMap = false;
     
     // Slow effect
     private float originalSpeed;
@@ -47,16 +53,53 @@ public class EnemyDurand : MonoBehaviour, IEnemy
 
     void Start()
     {
-        if (enemyManager.main == null || enemyManager.main.checkpoints == null || enemyManager.main.checkpoints.Length == 0)
+        // auto switch to split path if requested and scene is 'Map_split'
+        if (!useSplitPath && preferSplitOnSplitMap)
         {
-            Debug.LogError("enemyManager.main.checkpoints não configurado.", this);
-            enabled = false;
-            return;
+            string sname = SceneManager.GetActiveScene().name;
+            if (!string.IsNullOrEmpty(sname) && sname.ToLower().Contains("split"))
+            {
+                useSplitPath = true;
+            }
         }
 
-        originalSpeed = speed;
-        index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
-        checkpoint = enemyManager.main.checkpoints[index];
+        // Determine which path manager we'll use: enemyManager or enemySplitManager.
+        if (useSplitPath)
+        {
+            if (enemySplitManager.main == null || enemySplitManager.main.checkpoints == null || enemySplitManager.main.checkpoints.Length == 0)
+            {
+                Debug.LogError("enemySplitManager.main.checkpoints não configurado.", this);
+                enabled = false;
+                return;
+            }
+
+            index = Mathf.Clamp(index, 0, enemySplitManager.main.checkpoints.Length - 1);
+            checkpoint = enemySplitManager.main.checkpoints[index];
+            Debug.Log($"EnemyDurand: {gameObject.name} will use split path (Map split or wave preference). Manager checkpoints: {enemySplitManager.main.checkpoints.Length}");
+        }
+        else
+        {
+            // Try normal manager first
+            if (enemyManager.main != null && enemyManager.main.checkpoints != null && enemyManager.main.checkpoints.Length > 0)
+            {
+                index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
+                checkpoint = enemyManager.main.checkpoints[index];
+            }
+            else if (enemySplitManager.main != null && enemySplitManager.main.checkpoints != null && enemySplitManager.main.checkpoints.Length > 0)
+            {
+                // Fallback to split manager so the enemy won't be disabled if normal manager is missing
+                useSplitPath = true;
+                index = Mathf.Clamp(index, 0, enemySplitManager.main.checkpoints.Length - 1);
+                checkpoint = enemySplitManager.main.checkpoints[index];
+                Debug.LogWarning($"EnemyDurand: enemyManager not configured -- falling back to enemySplitManager for {gameObject.name}");
+            }
+            else
+            {
+                Debug.LogError("enemyManager.main.checkpoints não configurado.", this);
+                enabled = false;
+                return;
+            }
+        }
 
         if (anim.runtimeAnimatorController == null)
         {
@@ -67,11 +110,23 @@ public class EnemyDurand : MonoBehaviour, IEnemy
     void Update()
     {
         // Atualiza referência caso o manager troque os checkpoints em runtime
-        if (enemyManager.main != null && enemyManager.main.checkpoints != null && enemyManager.main.checkpoints.Length > 0)
+        if (!useSplitPath)
         {
-            index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
-            checkpoint = enemyManager.main.checkpoints[index];
+            if (enemyManager.main != null && enemyManager.main.checkpoints != null && enemyManager.main.checkpoints.Length > 0)
+            {
+                index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
+                checkpoint = enemyManager.main.checkpoints[index];
+            }
         }
+        else
+        {
+            if (enemySplitManager.main != null && enemySplitManager.main.checkpoints != null && enemySplitManager.main.checkpoints.Length > 0)
+            {
+                index = Mathf.Clamp(index, 0, enemySplitManager.main.checkpoints.Length - 1);
+                checkpoint = enemySplitManager.main.checkpoints[index];
+            }
+        }
+        // no stray extra code
 
         if (checkpoint == null) return;
         
@@ -86,19 +141,35 @@ public class EnemyDurand : MonoBehaviour, IEnemy
         if (Vector2.Distance(transform.position, checkpoint.position) <= arriveTolerance)
         {
             index++;
-            if (index >= enemyManager.main.checkpoints.Length)
+            if (!useSplitPath)
             {
-                // Chegou no fim - causa dano à base
-                if (BaseHealth.instance != null)
+                if (index >= enemyManager.main.checkpoints.Length)
                 {
-                    BaseHealth.instance.EnemyReachedBase();
+                    if (BaseHealth.instance != null)
+                    {
+                        BaseHealth.instance.EnemyReachedBase();
+                    }
+                    rb.linearVelocity = Vector2.zero;
+                    Destroy(gameObject);
+                    return;
                 }
-                
-                rb.linearVelocity = Vector2.zero;
-                Destroy(gameObject);
-                return;
+                checkpoint = enemyManager.main.checkpoints[index];
             }
-            checkpoint = enemyManager.main.checkpoints[index];
+            else
+            {
+                if (index >= enemySplitManager.main.checkpoints.Length)
+                {
+                    if (BaseHealth.instance != null)
+                    {
+                        BaseHealth.instance.EnemyReachedBase();
+                    }
+                    rb.linearVelocity = Vector2.zero;
+                    Destroy(gameObject);
+                    return;
+                }
+                checkpoint = enemySplitManager.main.checkpoints[index];
+            }
+            // handled above
         }
     }
 

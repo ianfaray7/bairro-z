@@ -20,6 +20,12 @@ public static class PauseBootstrap
                     var go = new GameObject("PauseMenu");
                     go.AddComponent<PauseMenu>();
                 }
+                // Ensure UIManager exists so game over UI is present
+                if (UnityEngine.Object.FindFirstObjectByType<UIManager>() == null)
+                {
+                    var uiGo = new GameObject("UIManager");
+                    uiGo.AddComponent<UIManager>();
+                }
             }
         }
         catch { }
