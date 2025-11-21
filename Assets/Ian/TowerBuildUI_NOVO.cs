@@ -36,7 +36,8 @@ public class TowerBuildUI_NOVO : MonoBehaviour
     [SerializeField] private GameObject upgradeButtonPrefab;
     
     private BuildTile currentBuildTile;
-    private bool isShowingSellUI = false;
+    // track sell UI visibility if needed in future; currently unused
+    // private bool isShowingSellUI = false;
     
     void Start()
     {
@@ -136,7 +137,6 @@ public class TowerBuildUI_NOVO : MonoBehaviour
     public void ShowUI(BuildTile buildTile)
     {
         currentBuildTile = buildTile;
-        isShowingSellUI = false;
         
         // Limpa botões de upgrade/venda se existirem
         ClearUpgradeButtons();
@@ -159,7 +159,6 @@ public class TowerBuildUI_NOVO : MonoBehaviour
     public void ShowSellUI(BuildTile buildTile)
     {
         currentBuildTile = buildTile;
-        isShowingSellUI = true;
         
         // Esconde os botões de torre
         ShowTowerButtons(false);
@@ -276,7 +275,6 @@ public class TowerBuildUI_NOVO : MonoBehaviour
     {
         uiPanel.SetActive(false);
         currentBuildTile = null;
-        isShowingSellUI = false;
     }
     
     void OnTowerButtonClicked(TowerData towerData)

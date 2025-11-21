@@ -45,6 +45,7 @@ public class TowerBehavior : MonoBehaviour
     
     void Update()
     {
+        if (PauseManager.IsPaused) return;
         // Countdown do cooldown de ataque
         if (attackCooldown > 0)
         {
@@ -77,6 +78,7 @@ public class TowerBehavior : MonoBehaviour
     
     void FindTarget()
     {
+        if (PauseManager.IsPaused) return;
         if (towerData == null)
             return;
             

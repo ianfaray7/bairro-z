@@ -151,6 +151,17 @@ public class EnemySplit : MonoBehaviour, IEnemy
         }
 
         PlayIfDifferent(targetState);
+
+        // Inverte sprite para esquerda quando estamos na animação lateral esquerda
+        if (spriteRenderer != null)
+        {
+            bool isSide = targetState == stateWalkLeft || targetState == stateWalkRight;
+            spriteRenderer.flipX = (targetState == stateWalkLeft) && isSide;
+        }
+
+    #if UNITY_EDITOR
+        Debug.Log($"[enemySplit] {gameObject.name} update walk to {targetState} (dir={dir.x:F2},{dir.y:F2}) flipX={spriteRenderer?.flipX}");
+    #endif
     }
 
     private System.Collections.IEnumerator FlashRed()

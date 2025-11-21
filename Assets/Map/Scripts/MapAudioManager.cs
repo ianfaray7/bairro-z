@@ -70,7 +70,7 @@ public class MapAudioManager : MonoBehaviour
 
     void EnsureSingleAudioListener()
     {
-        var listeners = FindObjectsOfType<AudioListener>(true);
+        var listeners = UnityEngine.Object.FindObjectsByType<AudioListener>(UnityEngine.FindObjectsSortMode.None);
         if (listeners == null || listeners.Length == 0)
         {
             // nenhum listener: adiciona um ao próprio GameObject (MapAudioManager)

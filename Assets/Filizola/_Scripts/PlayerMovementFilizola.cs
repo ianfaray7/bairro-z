@@ -4,13 +4,13 @@ public class PlayerMovementFilizola : MonoBehaviour
 {
 
     private Rigidbody2D rb;
-    AudioSource audio;
+    AudioSource audioSource;
     public float speed;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         
     }
 
@@ -28,7 +28,7 @@ public class PlayerMovementFilizola : MonoBehaviour
     {
        if (other.tag== "Coletavel")
        {
-        audio.Play();
+        if (audioSource != null) audioSource.Play();
         GameController.Collect();
 
         Destroy(other.gameObject);

@@ -18,6 +18,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (PauseManager.IsPaused)
+        {
+            // still read mouse to avoid weird states but ignore movement
+            MouseWorldPosition = MouseWorldPosition; // no-op
+            return;
+        }
         // input de movimento (WASD / setas)
         float hx = Input.GetAxisRaw("Horizontal"); // -1, 0, 1
         float vy = Input.GetAxisRaw("Vertical");
@@ -35,6 +41,12 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (PauseManager.IsPaused)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         rb.linearVelocity = moveInput * moveSpeed;
     }
 }

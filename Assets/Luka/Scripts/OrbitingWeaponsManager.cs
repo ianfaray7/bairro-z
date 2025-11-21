@@ -42,6 +42,8 @@ public class OrbitingWeaponsManager : MonoBehaviour
     void Update()
     {
         if (weaponPrefab == null) return;
+
+        if (PauseManager.IsPaused) return; // don't process weapons when paused
         UpdateWeaponsPositionAndRotation();
 
         fireTimer -= Time.deltaTime;

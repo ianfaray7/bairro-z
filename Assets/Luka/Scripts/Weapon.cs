@@ -28,6 +28,8 @@ public class Weapon : MonoBehaviour
 
     public void Fire()
     {
+        // Não disparar se o jogo estiver em pausa
+        if (PauseManager.IsPaused) return;
         if (cdTimer > 0f) return;
 
         Vector2 origin = muzzlePoint ? (Vector2)muzzlePoint.position : (Vector2)transform.position;
@@ -47,6 +49,8 @@ public class Weapon : MonoBehaviour
         {
             GameObject p = Instantiate(projectilePrefab, origin, Quaternion.identity);
             ProjectileLuka proj = p.GetComponent<ProjectileLuka>();
+            // Make projectile pauseable
+            if (p.GetComponent<PauseableRigidbody>() == null) p.AddComponent<PauseableRigidbody>();
             if (proj != null) proj.Launch(dir * projectileSpeed);
             else
             {

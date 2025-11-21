@@ -23,6 +23,7 @@ public class ProjectileLuka : MonoBehaviour
     float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
     transform.rotation = Quaternion.Euler(0, 0, angle);
 
+    if (GetComponent<PauseableRigidbody>() == null) gameObject.AddComponent<PauseableRigidbody>();
     Destroy(gameObject, lifeTime);
 }
 
