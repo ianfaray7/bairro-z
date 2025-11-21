@@ -49,6 +49,7 @@ public class EnemyIan : MonoBehaviour, IEnemy
     
     void Update()
     {
+        if (PauseManager.IsPaused) return;
         // Atualiza slow
         if (slowDuration > 0)
         {
@@ -72,6 +73,7 @@ public class EnemyIan : MonoBehaviour, IEnemy
     /// </summary>
     void MoveZigzag()
     {
+        if (PauseManager.IsPaused) return;
         zigzagTimer += Time.deltaTime * zigzagSpeed;
         
         // Movimento para frente (direita)

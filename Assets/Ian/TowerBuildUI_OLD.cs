@@ -15,7 +15,8 @@ public class TowerBuildUI : MonoBehaviour
     [SerializeField] private TowerData[] availableTowers;
     
     private BuildTile currentBuildTile;
-    private bool isShowingSellUI = false;
+    // variable previously used to track sell UI; unused now
+    // private bool isShowingSellUI = false;
     
     void Start()
     {
@@ -101,7 +102,6 @@ public class TowerBuildUI : MonoBehaviour
     public void ShowUI(BuildTile buildTile)
     {
         currentBuildTile = buildTile;
-        isShowingSellUI = false;
         
         // Limpa botões anteriores
         ClearButtons();
@@ -118,7 +118,6 @@ public class TowerBuildUI : MonoBehaviour
     public void ShowSellUI(BuildTile buildTile)
     {
         currentBuildTile = buildTile;
-        isShowingSellUI = true;
         
         // Limpa botões anteriores
         ClearButtons();
@@ -242,7 +241,6 @@ public class TowerBuildUI : MonoBehaviour
     {
         uiPanel.SetActive(false);
         currentBuildTile = null;
-        isShowingSellUI = false;
     }
     
     void OnTowerButtonClicked(TowerData towerData)

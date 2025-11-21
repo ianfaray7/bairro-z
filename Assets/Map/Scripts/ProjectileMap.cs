@@ -13,6 +13,8 @@ public class ProjectileMap : MonoBehaviour
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         rb.linearVelocity = velocity;
+        // Add PauseableRigidbody to handle global pause (freezes physics)
+        if (GetComponent<PauseableRigidbody>() == null) gameObject.AddComponent<PauseableRigidbody>();
         Destroy(gameObject, lifeTime);
     }
 

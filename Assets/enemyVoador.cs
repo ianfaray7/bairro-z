@@ -10,6 +10,7 @@ public class enemyVoador : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
+    private SpriteRenderer spriteRenderer;
 
     private int index = 0;
     private Transform checkpoint;
@@ -27,6 +28,7 @@ public class enemyVoador : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -115,6 +117,16 @@ public class enemyVoador : MonoBehaviour
         }
 
         PlayIfDifferent(targetState);
+
+        if (spriteRenderer != null)
+        {
+            bool isSide = targetState == stateWalkLeft || targetState == stateWalkRight;
+            spriteRenderer.flipX = (targetState == stateWalkLeft) && isSide;
+        }
+
+    #if UNITY_EDITOR
+        Debug.Log($"[enemyVoador] {gameObject.name} update walk to {targetState} (dir={dir.x:F2},{dir.y:F2}) flipX={spriteRenderer?.flipX}");
+    #endif
     }
 
     private void PlayIfDifferent(string stateName)
