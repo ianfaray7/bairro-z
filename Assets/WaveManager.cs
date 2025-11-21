@@ -118,6 +118,12 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave()
     {
+        // evita iniciar múltiplas waves em paralelo
+        if (waveInProgress)
+        {
+            Debug.LogWarning("StartNextWave chamado mas já existe uma wave em progresso — chamando ignorada.");
+            return;
+        }
         if (currentWaveIndex >= waves.Length)
         {
             Debug.Log("🎉 Todas as waves completadas! VITÓRIA!");

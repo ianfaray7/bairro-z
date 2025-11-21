@@ -26,10 +26,17 @@ public class MapSelectionUI : MonoBehaviour
     public Vector2 buttonSize = new Vector2(360, 80);
     // procura miniaturas em Resources/MapThumbnails/{sceneName}
     public string thumbnailResourcePath = "MapThumbnails";
+    [Header("Debug / Visibility")]
+    public bool forceVisibleButtons = true; // se true, garante bkg.color != transparent para MapList fallback e runtime
+    [Header("Fallback Options")]
+    public MapList mapList; // optional ScriptableObject in Resources or assigned in Inspector
     [Header("Layout Options")]
     public bool useHorizontalLayout = true;
     public Sprite buttonBorderSprite; // arraste aqui o 'Artboard 5' do Inspector
     public bool useBorderSpriteSize = true; // se true, o botão terá o tamanho do sprite de borda
+    [Header("Editor Tools")]
+    [Tooltip("Quando habilitado no Editor, força o MapList fallback como se fosse WebGL — útil para testar sem builds.")]
+    public bool simulateWebGL = false;
 
     private List<string> scenes = new List<string>();
     // map scene name -> path (Assets/..../xxx.unity)
@@ -52,6 +59,18 @@ public class MapSelectionUI : MonoBehaviour
 
     void Start()
     {
+        // If a border sprite isn't explicitly assigned in the Inspector, try a runtime Resources lookup.
+        // This helps show a non-empty border in builds (WebGL) when someone put the art into a Resources folder.
+        if (buttonBorderSprite == null)
+        {
+            // try a common fallback name (put the sprite into Assets/Resources/Upgrade_bubble.png)
+            var tryRes = Resources.Load<Sprite>("Upgrade_bubble");
+            if (tryRes != null)
+            {
+                buttonBorderSprite = tryRes;
+                Debug.Log("MapSelectionUI: Loaded fallback 'Upgrade_bubble' from Resources at runtime.");
+            }
+        }
         #if UNITY_EDITOR
         // Auto-assign artboard sprite if not set (editor only) to speed up testing
         if (buttonBorderSprite == null)
@@ -80,7 +99,9 @@ public class MapSelectionUI : MonoBehaviour
 
         scenes.Clear();
 
-        int count = SceneManager.sceneCountInBuildSettings;
+        bool forceMapListFromEditor = Application.isEditor && simulateWebGL;
+        int count = 0;
+        if (!forceMapListFromEditor) count = SceneManager.sceneCountInBuildSettings;
         for (int i = 0; i < count; i++)
         {
             string path = SceneUtility.GetScenePathByBuildIndex(i);
@@ -98,37 +119,30 @@ public class MapSelectionUI : MonoBehaviour
 
             var b = Instantiate(buttonPrefab, contentParent);
             b.name = "MapButton_" + name;
+            // find label components (Text or TextMeshPro) and set display name
             var label = b.GetComponentInChildren<Text>();
             var labelTMP = b.GetComponentInChildren<TextMeshProUGUI>();
             if (label != null)
             {
                 label.text = MapDisplayName(name);
                 label.gameObject.SetActive(true);
-                // escrevemos o texto em preto conforme solicitado
                 label.color = Color.black;
-                label.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f);
                 label.alignment = TextAnchor.MiddleCenter;
-                    label.transform.SetAsLastSibling();
+                label.transform.SetAsLastSibling();
             }
             else if (labelTMP != null)
             {
                 labelTMP.text = MapDisplayName(name);
                 labelTMP.gameObject.SetActive(true);
                 labelTMP.color = Color.black;
-                labelTMP.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f);
                 labelTMP.alignment = TextAlignmentOptions.Center;
                 labelTMP.rectTransform.anchorMin = Vector2.zero;
                 labelTMP.rectTransform.anchorMax = Vector2.one;
                 labelTMP.rectTransform.offsetMin = Vector2.zero;
                 labelTMP.rectTransform.offsetMax = Vector2.zero;
                 labelTMP.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                    labelTMP.transform.SetAsLastSibling();
+                labelTMP.transform.SetAsLastSibling();
             }
-
-            // Ajusta aparência do botão
-            var rt = b.GetComponent<RectTransform>();
-            if (rt != null) rt.sizeDelta = buttonSize;
-            // Ensure LayoutElement forces a preferred size and prevents vertical stretching
             var layoutElement = b.gameObject.GetComponent<UnityEngine.UI.LayoutElement>();
             if (layoutElement == null) layoutElement = b.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
             layoutElement.preferredWidth = buttonSize.x;
@@ -164,6 +178,14 @@ public class MapSelectionUI : MonoBehaviour
             string sceneName = name; // capture
             // aplica borda caso disponivel (Upgrade_bubble) — deixa o texto dentro da borda
             var bkg = b.GetComponent<UnityEngine.UI.Image>();
+            // Ensure background is visible (fallback) — sometimes prefab uses full transparent image
+            if (bkg != null)
+            {
+                if (forceVisibleButtons && bkg.color.a < 0.1f)
+                {
+                    bkg.color = Color.white; // fallback visible background
+                }
+            }
             if (buttonBorderSprite != null && bkg != null)
             {
                 bkg.sprite = buttonBorderSprite;
@@ -175,8 +197,42 @@ public class MapSelectionUI : MonoBehaviour
                     layoutElement.preferredWidth = buttonBorderSprite.rect.width;
                     layoutElement.preferredHeight = buttonBorderSprite.rect.height;
                 }
+                else if (bkg.sprite == null)
+                {
+                    // If the border sprite is missing, try a Resources fallback (helpful on builds)
+                    var res = Resources.Load<Sprite>("Upgrade_bubble");
+                    if (res != null)
+                    {
+                        bkg.sprite = res;
+                        bkg.type = Image.Type.Sliced;
+                        Debug.Log("MapSelectionUI: Applied Resources fallback border sprite for a button.");
+                    }
+                    else
+                    {
+                        // no sprite found: try to add a simple outline to make the button visible
+                        Debug.LogWarning("MapSelectionUI: buttonBorderSprite missing and Resources fallback not found; adding Outline fallback.");
+                        try
+                        {
+                            var outline = bkg.gameObject.GetComponent<UnityEngine.UI.Outline>();
+                            if (outline == null) outline = bkg.gameObject.AddComponent<UnityEngine.UI.Outline>();
+                            outline.effectColor = new Color(0f, 0f, 0f, 0.8f);
+                            outline.effectDistance = new Vector2(4f, -4f);
+                            // Keep a visible background
+                            bkg.color = new Color(1f, 1f, 1f, 0.97f);
+                        }
+                        catch { }
+                    }
+                }
                 // ensure button background is visible when using border sprite
                 bkg.color = Color.white;
+
+                // if panel background is dark, prefer dark text; else black text
+                Color panelCol = Color.black;
+                var panelImg = panel?.GetComponent<UnityEngine.UI.Image>();
+                if (panelImg != null) panelCol = panelImg.color;
+                bool panelIsDark = (panelCol.r + panelCol.g + panelCol.b) / 3f < 0.5f;
+                if (label != null) label.color = panelIsDark ? Color.white : Color.black;
+                if (labelTMP != null) labelTMP.color = panelIsDark ? Color.white : Color.black;
 
                 // se a borda estiver presente, escondemos a thumbnail (não precisamos) e centralizamos o label
                 if (thumbImage != null) thumbImage.gameObject.SetActive(false);
@@ -211,6 +267,28 @@ public class MapSelectionUI : MonoBehaviour
                 Debug.Log($"MapSelectionUI: Botão {sceneName} clicado.");
                 LoadMap(sceneName);
             });
+            // Debug: show visual state
+            Debug.Log($"MapSelectionUI: Created button {b.name} bgAlpha={ (b.GetComponent<UnityEngine.UI.Image>()?.color.a ?? -1f) } sprite={(b.GetComponent<UnityEngine.UI.Image>()?.sprite!=null)} label={(label!=null)} labelTMP={(labelTMP!=null)}");
+        }
+
+        // DEBUG: show how many scenes we found in Build Settings (or that we skipped because of simulateWebGL)
+        Debug.Log($"MapSelectionUI: Found {scenes.Count} map scenes in Build Settings that start with '{scenePrefix}' (simulateWebGL={simulateWebGL})");
+
+        // If nothing in Build Settings and we have a MapList ScriptableObject, use it as fallback
+        if (scenes.Count == 0 && mapList == null)
+        {
+            // Try to load MapList from Resources
+            mapList = Resources.Load<MapList>("MapList");
+            if (mapList != null) Debug.Log($"MapSelectionUI: Loaded MapList ScriptableObject from Resources: {mapList.scenes.Count} scenes");
+        }
+
+        if (scenes.Count == 0 && mapList != null)
+        {
+            Debug.Log($"MapSelectionUI: Populate from MapList with {mapList.scenes.Count} scenes");
+            PopulateFromMapList(mapList);
+            Debug.Log($"MapSelectionUI: Buttons created after PopulateFromMapList: {contentParent.childCount}");
+            // scenes is now set by PopulateFromMapList
+            return;
         }
 
         // Reorder scenes to prefer default Map order if present
@@ -225,133 +303,8 @@ public class MapSelectionUI : MonoBehaviour
             return ai.CompareTo(bi);
         });
 
-        // caso poucas cenas encontradas no BuildSettings, procurar nas pastas do projeto (Assets/Map/Scenes)
-        if (scenes.Count < 3)
-        {
-            try
-            {
-                var dir = Path.Combine(Application.dataPath, "Map/Scenes");
-                if (Directory.Exists(dir))
-                {
-                    var files = Directory.GetFiles(dir, "*.unity");
-                    foreach (var f in files)
-                    {
-                        var n = Path.GetFileNameWithoutExtension(f);
-                        if (string.IsNullOrEmpty(n)) continue;
-                        if (!string.IsNullOrEmpty(scenePrefix) && !n.StartsWith(scenePrefix)) continue;
-                        if (!scenes.Contains(n))
-                        {
-                            // adiciona botão
-                            scenes.Add(n);
-                            // capture path for fallback entries too
-                            if (!scenePaths.ContainsKey(n)) scenePaths[n] = f.Replace("\\", "/");
-                            var b2 = Instantiate(buttonPrefab, contentParent);
-                            b2.name = "MapButton_" + n;
-                            var label2 = b2.GetComponentInChildren<Text>();
-                            var label2TMP = b2.GetComponentInChildren<TextMeshProUGUI>();
-                            if (label2 != null)
-                            {
-                                label2.text = MapDisplayName(n);
-                                label2.gameObject.SetActive(true);
-                                // escrevemos o texto em preto conforme solicitado
-                                label2.color = Color.black;
-                                label2.alignment = TextAnchor.MiddleCenter;
-                                    label2.transform.SetAsLastSibling();
-                            }
-                            else if (label2TMP != null)
-                            {
-                                label2TMP.text = MapDisplayName(n);
-                                label2TMP.gameObject.SetActive(true);
-                                label2TMP.color = Color.black;
-                                label2TMP.alignment = TextAlignmentOptions.Center;
-                                label2TMP.rectTransform.anchorMin = Vector2.zero;
-                                label2TMP.rectTransform.anchorMax = Vector2.one;
-                                label2TMP.rectTransform.offsetMin = Vector2.zero;
-                                label2TMP.rectTransform.offsetMax = Vector2.zero;
-                                label2TMP.rectTransform.pivot = new Vector2(0.5f, 0.5f);
-                                    label2TMP.transform.SetAsLastSibling();
-                            }
-                            var rt2 = b2.GetComponent<RectTransform>(); if (rt2 != null) rt2.sizeDelta = buttonSize;
-                            var le2 = b2.gameObject.GetComponent<UnityEngine.UI.LayoutElement>();
-                            if (le2 == null) le2 = b2.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
-                            le2.preferredWidth = buttonSize.x;
-                            le2.preferredHeight = buttonSize.y;
-                            le2.flexibleHeight = 0f;
-                            le2.flexibleWidth = 0f;
-                            var bkg2 = b2.GetComponent<UnityEngine.UI.Image>();
-                            if (buttonBorderSprite != null && bkg2 != null) { bkg2.sprite = buttonBorderSprite; bkg2.type = Image.Type.Sliced; }
-                                if (useBorderSpriteSize && buttonBorderSprite != null)
-                                {
-                                    le2.preferredWidth = buttonBorderSprite.rect.width;
-                                    le2.preferredHeight = buttonBorderSprite.rect.height;
-                                    // atualiza fontSize depois de ajustar o tamanho final do botão para fallback
-                                    if (label2 != null)
-                                    {
-                                        label2.fontSize = Mathf.RoundToInt(le2.preferredHeight * 0.35f);
-                                    }
-                                }
-                            var cb2 = b2.colors;
-                            cb2.normalColor = buttonColor;
-                            cb2.highlightedColor = buttonHoverColor;
-                            b2.colors = cb2;
-                            var thumbImage2 = b2.transform.Find("Thumbnail")?.GetComponent<UnityEngine.UI.Image>();
-                            if (thumbImage2 != null)
-                            {
-                                Sprite s2 = null;
-                                if (!string.IsNullOrEmpty(thumbnailResourcePath)) s2 = Resources.Load<Sprite>($"{thumbnailResourcePath}/{n}");
-                                if (s2 != null)
-                                {
-                                    thumbImage2.sprite = s2;
-                                    thumbImage2.color = Color.white;
-                                    thumbImage2.gameObject.SetActive(true);
-                                }
-                                else
-                                {
-                                    // não exibir thumbnail se não existir - evita retângulos brancos
-                                    thumbImage2.gameObject.SetActive(false);
-                                    // também desativa a HorizontalLayoutGroup para centralizar label2
-                                    var hl2 = b2.GetComponent<UnityEngine.UI.HorizontalLayoutGroup>();
-                                    if (hl2 != null) hl2.enabled = false;
-                                }
-                            }
-                            string ncopy = n;
-                            b2.onClick.AddListener(() => {
-                                Debug.Log($"MapSelectionUI: Botão {ncopy} clicado (fallback).");
-                                LoadMap(ncopy);
-                            });
-                            // se a borda estiver presente, escondemos a thumbnail (não precisamos) e centralizamos o label
-                            if (buttonBorderSprite != null)
-                            {
-                                if (thumbImage2 != null) thumbImage2.gameObject.SetActive(false);
-                                if (label2 != null)
-                                {
-                                    label2.alignment = TextAnchor.MiddleCenter;
-                                    var le = label2.GetComponent<UnityEngine.UI.LayoutElement>();
-                                    if (le == null) le = label2.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
-                                    le.flexibleWidth = 1f;
-                                    le.flexibleHeight = 1f;
-                                    if (label2TMP != null)
-                                    {
-                                        var leTMP2 = label2TMP.GetComponent<UnityEngine.UI.LayoutElement>();
-                                        if (leTMP2 == null) leTMP2 = label2TMP.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
-                                        leTMP2.flexibleWidth = 1f;
-                                        leTMP2.flexibleHeight = 1f;
-                                    }
-                                    label2.rectTransform.anchorMin = Vector2.zero;
-                                    label2.rectTransform.anchorMax = Vector2.one;
-                                    label2.rectTransform.offsetMin = Vector2.zero;
-                                    label2.rectTransform.offsetMax = Vector2.zero;
-                                    // disable horizontal layout (fallback buttons) so label occupies center space
-                                    var hl2 = b2.GetComponent<UnityEngine.UI.HorizontalLayoutGroup>();
-                                    if (hl2 != null) hl2.enabled = false;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch { }
-        }
+        // If older repo layout is not included in BuildSettings, prefer the MapList ScriptableObject (WebGL)
+        // The Assets/Map/Scenes fallback was removed to simplify the editor/runtime logic.
 
         // se quiser forçar layout horizontal no contentParent (por exemplo se usar fallback)
         if (useHorizontalLayout && contentParent != null)
@@ -368,7 +321,128 @@ public class MapSelectionUI : MonoBehaviour
                 h.childForceExpandWidth = false;
             }
         }
+
+        // If no map scenes were found, inform user in the content area so WebGL builds show feedback
+        if (scenes.Count == 0 && contentParent != null)
+        {
+            Debug.LogWarning("MapSelectionUI: Nenhum mapa encontrado nas Build Settings. Verifique se cenas de mapas estão incluídas na build.");
+            var msgGo = new GameObject("NoMapsMessage");
+            msgGo.transform.SetParent(contentParent, false);
+            var txt = msgGo.AddComponent<UnityEngine.UI.Text>();
+            txt.text = "Nenhum mapa disponível. Verifique Build Settings (WebGL não lista arquivos locais).";
+            txt.color = Color.white;
+            txt.alignment = TextAnchor.MiddleCenter;
+            txt.fontSize = 24;
+            Font f = null; try { f = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf"); } catch { } if (f == null) { try { f = Resources.GetBuiltinResource<Font>("Arial.ttf"); } catch { } } if (f != null) txt.font = f;
+            var rtmsg = msgGo.GetComponent<RectTransform>(); rtmsg.sizeDelta = new Vector2(600, 100);
+            Debug.Log("MapSelectionUI: No scenes found in Build Settings and no MapList found; created NoMapsMessage.");
+        }
     }
+
+    // Populate UI using a ScriptableObject MapList - this works in builds where BuildSettings scene list is empty (WebGL)
+    private void PopulateFromMapList(MapList ml)
+    {
+        if (ml == null || ml.scenes == null) return;
+        foreach (var name in ml.scenes)
+        {
+            if (string.IsNullOrEmpty(name)) continue;
+            if (!string.IsNullOrEmpty(scenePrefix) && !name.StartsWith(scenePrefix)) continue;
+            if (!scenes.Contains(name)) scenes.Add(name);
+
+            var b = Instantiate(buttonPrefab, contentParent);
+            b.name = "MapButton_" + name;
+            var label = b.GetComponentInChildren<Text>();
+            var labelTMP = b.GetComponentInChildren<TextMeshProUGUI>();
+            if (label != null) { label.text = MapDisplayName(name); label.gameObject.SetActive(true); label.color = Color.black; label.transform.SetAsLastSibling(); label.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f); }
+            if (labelTMP != null) { labelTMP.text = MapDisplayName(name); labelTMP.gameObject.SetActive(true); labelTMP.color = Color.black; labelTMP.transform.SetAsLastSibling(); labelTMP.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f); }
+
+            // If panel is dark, invert text color for readability
+            var panelImg = panel?.GetComponent<UnityEngine.UI.Image>();
+            if (panelImg != null)
+            {
+                bool panelIsDark = (panelImg.color.r + panelImg.color.g + panelImg.color.b) / 3f < 0.5f;
+                if (label != null) label.color = panelIsDark ? Color.white : Color.black;
+                if (labelTMP != null) labelTMP.color = panelIsDark ? Color.white : Color.black;
+            }
+
+            // basic resize and event
+            var rt = b.GetComponent<RectTransform>(); if (rt != null) rt.sizeDelta = buttonSize;
+            var layoutElement = b.gameObject.GetComponent<UnityEngine.UI.LayoutElement>(); if (layoutElement == null) layoutElement = b.gameObject.AddComponent<UnityEngine.UI.LayoutElement>();
+            layoutElement.preferredWidth = buttonSize.x; layoutElement.preferredHeight = buttonSize.y; layoutElement.flexibleHeight = 0f; layoutElement.flexibleWidth = 0f;
+            string ncopy = name;
+            b.onClick.AddListener(() => { Debug.Log($"MapSelectionUI: MapList button {ncopy} clicked."); LoadMap(ncopy); });
+                Debug.Log($"MapSelectionUI: Created MapList button {b.name} bgAlpha={(b.GetComponent<UnityEngine.UI.Image>()?.color.a ?? -1f)} sprite={(b.GetComponent<UnityEngine.UI.Image>()?.sprite!=null)}");
+
+            // Apply default visual style to MapList buttons (similar to PopulateList)
+            var bkg = b.GetComponent<UnityEngine.UI.Image>();
+            if (bkg != null && forceVisibleButtons && bkg.color.a < 0.1f)
+            {
+                bkg.color = Color.white;
+            }
+            if (bkg != null)
+            {
+                // Make sure a visible background exists (fallback)
+                bkg.color = Color.white;
+                if (forceVisibleButtons && bkg.color.a < 0.1f) bkg.color = Color.white;
+                if (buttonBorderSprite != null)
+                {
+                    bkg.sprite = buttonBorderSprite;
+                    bkg.type = Image.Type.Sliced;
+                }
+                else
+                {
+                    // Try to load a fallback sprite from Resources when using MapList fallback
+                    var res = Resources.Load<Sprite>("Upgrade_bubble");
+                    if (res != null)
+                    {
+                        bkg.sprite = res;
+                        bkg.type = Image.Type.Sliced;
+                        Debug.Log("MapSelectionUI: Applied Resources fallback border sprite for MapList button.");
+                    }
+                    else
+                    {
+                        // Add an outline/shadow fallback if sprite not present, to make the button stand out
+                        Debug.LogWarning("MapSelectionUI: buttonBorderSprite missing for MapList and no Resources fallback; adding Outline fallback.");
+                        try
+                        {
+                            var outline = bkg.gameObject.GetComponent<UnityEngine.UI.Outline>();
+                            if (outline == null) outline = bkg.gameObject.AddComponent<UnityEngine.UI.Outline>();
+                            outline.effectColor = new Color(0f, 0f, 0f, 0.8f);
+                            outline.effectDistance = new Vector2(3f, -3f);
+                        }
+                        catch { }
+                    }
+                }
+            }
+            // Colors
+            try {
+                var cb = b.colors;
+                cb.normalColor = buttonColor;
+                cb.highlightedColor = buttonHoverColor;
+                b.colors = cb;
+            } catch {}
+
+            // Thumbnail: try to hide it if missing (same as PopulateList)
+            var thumbImage = b.transform.Find("Thumbnail")?.GetComponent<UnityEngine.UI.Image>();
+            if (thumbImage != null)
+            {
+                Sprite s = null;
+                if (!string.IsNullOrEmpty(thumbnailResourcePath))
+                    s = Resources.Load<Sprite>($"{thumbnailResourcePath}/{name}");
+                if (s != null)
+                {
+                    thumbImage.sprite = s;
+                    thumbImage.color = Color.white;
+                    thumbImage.gameObject.SetActive(true);
+                }
+                else
+                {
+                    thumbImage.gameObject.SetActive(false);
+                }
+            }
+            }
+            Debug.Log($"MapSelectionUI: CreateFromMapList created {contentParent.childCount} buttons");
+        }
 
     public void LoadMap(string sceneName)
     {
@@ -412,6 +486,26 @@ public class MapSelectionUI : MonoBehaviour
         if (panel != null) panel.SetActive(true);
         // atualizar lista sempre que abrir
         PopulateList();
+        // if nothing created, try fallback runtime builder (resources or temporary)
+        if (contentParent != null && contentParent.childCount == 0)
+        {
+            Debug.LogWarning("MapSelectionUI: No map buttons created — trying runtime fallback (MapList/temporary). If you used Build Profiles, ensure maps are added for WebGL.");
+            if (mapList != null && mapList.scenes.Count > 0)
+            {
+                PopulateFromMapList(mapList);
+                return;
+            }
+
+            // final fallback: create a temporary MapSelection panel
+            if (panel == null || !panel.name.Equals("MapSelectionPanel"))
+            {
+                var tempPanel = CreateTemporaryAndShow();
+                if (tempPanel != null)
+                {
+                    Debug.Log("MapSelectionUI: Using temporary runtime fallback in Show().");
+                }
+            }
+        }
     }
 
     public void Hide()
@@ -478,8 +572,8 @@ public class MapSelectionUI : MonoBehaviour
         var btnRect = btnPrefab.AddComponent<RectTransform>();
         btnPrefab.AddComponent<CanvasRenderer>();
         var btnImage = btnPrefab.AddComponent<UnityEngine.UI.Image>();
-        // start transparent: avoid visible white rectangles until border sprite is applied
-        btnImage.color = new Color(1f, 1f, 1f, 0f);
+        // start visible by default so buttons are not invisible in fallback mode
+        btnImage.color = new Color(1f, 1f, 1f, 0.95f);
         var btn = btnPrefab.AddComponent<UnityEngine.UI.Button>();
         // layout para thumb + label
         var hLayout = btnPrefab.AddComponent<UnityEngine.UI.HorizontalLayoutGroup>();
@@ -539,12 +633,19 @@ public class MapSelectionUI : MonoBehaviour
         }
         #endif
 
+        // Runtime fallback for border sprite (if not assigned). Put the sprite at Assets/Resources/Upgrade_bubble.png to be found.
+        if (ms.buttonBorderSprite == null)
+        {
+            var sp = Resources.Load<Sprite>("Upgrade_bubble");
+            if (sp != null) ms.buttonBorderSprite = sp;
+        }
+
         // não exibe imediatamente para evitar conflito visual; deixe o Show() cuidar disso
         if (ms.panel != null) ms.panel.SetActive(false);
 
         // mostra imediatamente
         ms.Show();
-        Debug.Log("MapSelectionUI: fallback criado em runtime.");
+        Debug.Log("MapSelectionUI: fallback criado em runtime and shown; default btn alpha=" + btnImage.color.a);
         return ms;
     }
 }

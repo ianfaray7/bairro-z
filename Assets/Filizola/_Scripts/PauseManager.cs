@@ -13,6 +13,7 @@ public static class PauseManager
         IsPaused = true;
         Time.timeScale = 0f;
         AudioListener.pause = true;
+        Debug.Log("PauseManager: Paused");
         OnPauseChanged?.Invoke(true);
     }
 
@@ -22,6 +23,7 @@ public static class PauseManager
         IsPaused = false;
         Time.timeScale = 1f;
         AudioListener.pause = false;
+        Debug.Log("PauseManager: Resumed");
         OnPauseChanged?.Invoke(false);
     }
 

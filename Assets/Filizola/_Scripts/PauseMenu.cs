@@ -24,12 +24,22 @@ public class PauseMenu : MonoBehaviour
             enabled = false;
             return;
         }
+        // If PauseManager somehow remained paused across scenes, resume on new map scene to avoid stuck pause state
+        if (PauseManager.IsPaused)
+        {
+            Debug.Log("PauseMenu: Resuming PauseManager on scene load to avoid sticky paused state.");
+            PauseManager.Resume();
+        }
     }
     
     void OnEnable()
     {
         PauseManager.OnPauseChanged += OnPauseChanged;
         TrySubscribeGameOver();
+        // Ensure we sync our isPaused flag with the global PauseManager state when enabling
+        isPaused = PauseManager.IsPaused;
+        // This will create the UI if a pause was left over from a prior scene — otherwise it will hide it
+        OnPauseChanged(PauseManager.IsPaused);
     }
 
     void OnDisable()
@@ -80,7 +90,7 @@ public class PauseMenu : MonoBehaviour
 
     public static void HideAllPauseUI()
     {
-        var menus = GameObject.FindObjectsOfType<PauseMenu>();
+        var menus = UnityEngine.Object.FindObjectsByType<PauseMenu>(FindObjectsSortMode.None);
         foreach (var m in menus)
         {
             m.ForceHidePauseUI();
@@ -461,7 +471,7 @@ public class PauseMenu : MonoBehaviour
 
     private void LogCanvasDiagnostics()
     {
-        var canvases = GameObject.FindObjectsOfType<Canvas>();
+        var canvases = UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None);
         Debug.Log($"PauseMenu: Found {canvases.Length} canvases in scene:");
         foreach (var c in canvases)
         {

@@ -135,7 +135,15 @@ public class WaveTimerUI : MonoBehaviour
         // 🌊 Chama WaveManager para iniciar a próxima wave
         if (WaveManager.Instance != null)
         {
-            WaveManager.Instance.StartNextWave();
+            // Previna double-start: se o WaveManager já tem uma wave em progresso, ignore
+            if (!WaveManager.Instance.IsWaveInProgress())
+            {
+                WaveManager.Instance.StartNextWave();
+            }
+            else
+            {
+                Debug.LogWarning("WaveTimerUI: Timer completado mas WaveManager reporta wave em progresso — ignorando StartNextWave().");
+            }
         }
         else
         {

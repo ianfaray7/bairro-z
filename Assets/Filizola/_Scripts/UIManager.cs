@@ -98,7 +98,7 @@ public class UIManager : MonoBehaviour
 
     private void CreateRuntimeDeathPanel()
     {
-        Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+        Canvas canvas = UnityEngine.Object.FindFirstObjectByType<Canvas>();
         if (canvas == null)
         {
             var cgo = new GameObject("Canvas_Death");
