@@ -20013,6 +20013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2007428111}
+  - component: {fileID: 2007428112}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -20038,6 +20039,33 @@ Transform:
   - {fileID: 142022184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2007428112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007428110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a890de7b33f104096baea0c1dd8133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sampleTilemap: {fileID: 0}
+  sampleBoundsCollider: {fileID: 0}
+  useChildrenBounds: 1
+  verticalInset: 1.48
+  horizontalInset: 0
+  manualCenter: {x: 0, y: 0}
+  manualSize: {x: 900, y: 600}
+  thickness: 1
+  addDebugBoundsCollider: 0
+  createOnAwake: 1
+  playerLayerName: Player
+  wallLayerName: PlayerWall
+  autoDetectPlayerAndSetLayer: 1
+  autoAddColliderToPlayer: 0
+  autoSetupLayerCollisions: 1
 --- !u!1 &2027607660
 GameObject:
   m_ObjectHideFlags: 0

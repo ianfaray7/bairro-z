@@ -126,6 +126,14 @@ PRÓXIMOS PASSOS:
 5. ⚠️  Integrar funcionalidades entre sistemas
 6. ⚠️  Mover scripts para Assets/Scripts/ (organizados)
 
+SUPORTE A PAREDES DE BORDA (PLAYER-ONLY)
+---------------------------------------
+Se precisar impedir que o jogador fuja das bordas do mapa: use o utilitário `MapEdgeWalls` em `Assets/Filizola/_Scripts/MapEdgeWalls.cs`.
+ - Adicione o componente a um GameObject de mapa e defina `sampleTilemap` ou `sampleBoundsCollider`.
+ - Use `Filizola -> Map Edge -> Ensure Player Layers` para adicionar as layers `Player` e `PlayerWall` no Editor.
+ - Selecione o objeto Player e `Filizola -> Map Edge -> Set Selected GameObject as Player Layer` para garantir que o jogador tenha a layer `Player`.
+ - Por padrão o script chama `Physics2D.IgnoreLayerCollision` para que apenas a layer `Player` colida com `PlayerWall`.
+
 NOTAS IMPORTANTES:
 ------------------
 - Todos os GUIDs foram mantidos para preservar referências
