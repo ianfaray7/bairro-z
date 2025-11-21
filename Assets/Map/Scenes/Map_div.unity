@@ -1609,6 +1609,274 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1568035916004154947, guid: 958bca0aae18b6544a8c857c87c96542, type: 3}
   m_PrefabInstance: {fileID: 124330302}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &134317770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 134317772}
+  - component: {fileID: 134317771}
+  m_Layer: 0
+  m_Name: waveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &134317771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134317770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a88a083599a5577429892ac6f508b2ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - waveName: 1
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 5
+    enemyNormalSpawnDelay: 2
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: 7a12377bb76a61f4f947e6af5fb9685f, type: 3}
+    enemyTankCount: 0
+    enemyTankSpawnDelay: 0.1
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 2
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 8
+    enemyNormalSpawnDelay: 1.8
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 0
+    enemyTankSpawnDelay: 0.1
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 3
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 12
+    enemyNormalSpawnDelay: 1.5
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 0
+    enemyTankSpawnDelay: 0.1
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 4
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 15
+    enemyNormalSpawnDelay: 1.3
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 0
+    enemyTankSpawnDelay: 0.1
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 5
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 10
+    enemyNormalSpawnDelay: 1.5
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 2
+    enemyTankSpawnDelay: 3
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 6
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 12
+    enemyNormalSpawnDelay: 1.4
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 3
+    enemyTankSpawnDelay: 2.5
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 7
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 15
+    enemyNormalSpawnDelay: 1.2
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 4
+    enemyTankSpawnDelay: 2.5
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 8
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 10
+    enemyNormalSpawnDelay: 1.3
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 6
+    enemyTankSpawnDelay: 2
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 10
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 9
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 18
+    enemyNormalSpawnDelay: 1.1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 5
+    enemyTankSpawnDelay: 2.2
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 0
+    enemyVoadorSpawnDelay: 0.1
+    delayBeforeNextWave: 20
+  - waveName: 10
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 12
+    enemyNormalSpawnDelay: 1.3
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 3
+    enemyTankSpawnDelay: 2.5
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 4
+    enemyVoadorSpawnDelay: 2
+    delayBeforeNextWave: 20
+  - waveName: 11
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 10
+    enemyNormalSpawnDelay: 1.2
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 4
+    enemyTankSpawnDelay: 2.3
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 6
+    enemyVoadorSpawnDelay: 1.8
+    delayBeforeNextWave: 20
+  - waveName: 12
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 15
+    enemyNormalSpawnDelay: 1.1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 5
+    enemyTankSpawnDelay: 2
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 5
+    enemyVoadorSpawnDelay: 1.8
+    delayBeforeNextWave: 20
+  - waveName: 13
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 20
+    enemyNormalSpawnDelay: 1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 6
+    enemyTankSpawnDelay: 1.8
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 6
+    enemyVoadorSpawnDelay: 1.7
+    delayBeforeNextWave: 20
+  - waveName: 14
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 12
+    enemyNormalSpawnDelay: 1.1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 8
+    enemyTankSpawnDelay: 1.6
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 5
+    enemyVoadorSpawnDelay: 1.8
+    delayBeforeNextWave: 20
+  - waveName: 15
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 15
+    enemyNormalSpawnDelay: 1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 5
+    enemyTankSpawnDelay: 2
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 10
+    enemyVoadorSpawnDelay: 1.5
+    delayBeforeNextWave: 20
+  - waveName: 16
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 18
+    enemyNormalSpawnDelay: 0.1
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 7
+    enemyTankSpawnDelay: 1.7
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 8
+    enemyVoadorSpawnDelay: 1.5
+    delayBeforeNextWave: 20
+  - waveName: 17
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 25
+    enemyNormalSpawnDelay: 0.8
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 8
+    enemyTankSpawnDelay: 1.5
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 7
+    enemyVoadorSpawnDelay: 1.6
+    delayBeforeNextWave: 20
+  - waveName: 18
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 15
+    enemyNormalSpawnDelay: 0.9
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 12
+    enemyTankSpawnDelay: 1.4
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 8
+    enemyVoadorSpawnDelay: 1.5
+    delayBeforeNextWave: 20
+  - waveName: 19
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 20
+    enemyNormalSpawnDelay: 0.8
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 10
+    enemyTankSpawnDelay: 1.3
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 12
+    enemyVoadorSpawnDelay: 1.3
+    delayBeforeNextWave: 0
+  - waveName: 20
+    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
+    enemyNormalCount: 30
+    enemyNormalSpawnDelay: 0.7
+    enemyTankPrefab: {fileID: 3856965778531853698, guid: e778a7b2572104340947b9f9443ea932, type: 3}
+    enemyTankCount: 15
+    enemyTankSpawnDelay: 1.2
+    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
+    enemyVoadorCount: 15
+    enemyVoadorSpawnDelay: 1.2
+    delayBeforeNextWave: 0
+  spawnPoint: {fileID: 997852353}
+  autoStart: 1
+  delayBeforeFirstWave: 20
+--- !u!4 &134317772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134317770}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.56, y: -0.32, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142022182
 GameObject:
   m_ObjectHideFlags: 0
@@ -15343,7 +15611,7 @@ MonoBehaviour:
   timerText: {fileID: 21879400}
   timerFillImage: {fileID: 0}
   timerPanel: {fileID: 467072575}
-  timeBetweenWaves: 30
+  timeBetweenWaves: 10
   startTimerOnStart: 0
 --- !u!114 &1417007138
 MonoBehaviour:
@@ -15357,10 +15625,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee9a5bdd032a484cb7e71bc708f9a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 500
+  startingMoney: 400
   startingLives: 15
   moneyPerWave: 150
-  normalEnemyReward: 15
+  normalEnemyReward: 10
   flyingEnemyReward: 15
   splitEnemyReward: 15
   moneyText: {fileID: 1337019344}
@@ -16874,76 +17142,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1568035916004154947, guid: 958bca0aae18b6544a8c857c87c96542, type: 3}
   m_PrefabInstance: {fileID: 1672717716}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1681861637
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1681861639}
-  - component: {fileID: 1681861638}
-  m_Layer: 0
-  m_Name: waveManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1681861638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681861637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a88a083599a5577429892ac6f508b2ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  waves:
-  - waveName: 1
-    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
-    enemyNormalCount: 5
-    enemyNormalSpawnDelay: 0.5
-    enemyTankPrefab: {fileID: 3856965778531853698, guid: 7a12377bb76a61f4f947e6af5fb9685f, type: 3}
-    enemyTankCount: 5
-    enemyTankSpawnDelay: 0.5
-    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
-    enemyVoadorCount: 3
-    enemyVoadorSpawnDelay: 1
-    delayBeforeNextWave: 20
-  - waveName: 2
-    enemyNormalPrefab: {fileID: 8754698153889380330, guid: 1d49e7905cff53b45bec00dd2bccd525, type: 3}
-    enemyNormalCount: 5
-    enemyNormalSpawnDelay: 0.1
-    enemyTankPrefab: {fileID: 3856965778531853698, guid: 7a12377bb76a61f4f947e6af5fb9685f, type: 3}
-    enemyTankCount: 5
-    enemyTankSpawnDelay: 0.1
-    enemyVoadorPrefab: {fileID: 6481976763113866213, guid: be691c7ead0ba534aa978202d21f6029, type: 3}
-    enemyVoadorCount: 2
-    enemyVoadorSpawnDelay: 0.1
-    delayBeforeNextWave: 20
-  spawnPoint: {fileID: 997852353}
-  autoStart: 1
-  delayBeforeFirstWave: 3
---- !u!4 &1681861639
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1681861637}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.56, y: -0.32, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684857605
 GameObject:
   m_ObjectHideFlags: 0
@@ -20583,7 +20781,7 @@ SceneRoots:
   - {fileID: 1686028382}
   - {fileID: 1943652804}
   - {fileID: 8763577}
-  - {fileID: 1681861639}
   - {fileID: 392292120}
   - {fileID: 1155997370}
   - {fileID: 1417007139}
+  - {fileID: 134317772}

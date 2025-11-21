@@ -17,6 +17,7 @@ public class WaveTimerUI : MonoBehaviour
     [SerializeField] private float timeBetweenWaves = 30f; // 30 segundos entre waves
     [SerializeField] private bool startTimerOnStart = false;
     
+    private float defaultTimeBetweenWaves; // Armazena o valor padrão
     private float currentTimer;
     private bool isTimerRunning = false;
     private bool isWaveActive = false;
@@ -40,6 +41,9 @@ public class WaveTimerUI : MonoBehaviour
     
     void Start()
     {
+        // Armazena o tempo padrão
+        defaultTimeBetweenWaves = timeBetweenWaves;
+        
         Debug.Log($"⏰ WaveTimerUI Start - Timer Text: {(timerText != null ? "OK" : "NULL")}, Timer Panel: {(timerPanel != null ? "OK" : "NULL")}, Fill Image: {(timerFillImage != null ? "OK" : "NULL")}");
         
         if (startTimerOnStart)
@@ -79,6 +83,14 @@ public class WaveTimerUI : MonoBehaviour
         ShowTimer();
         UpdateTimerUI();
         Debug.Log($"⏰ Timer iniciado: {timeBetweenWaves} segundos até próxima wave");
+    }
+    
+    /// <summary>
+    /// Define um tempo customizado para o timer (usado no início do jogo)
+    /// </summary>
+    public void SetCustomTimer(float customTime)
+    {
+        timeBetweenWaves = customTime;
     }
     
     /// <summary>
@@ -145,6 +157,10 @@ public class WaveTimerUI : MonoBehaviour
     {
         Debug.Log("⏰ OnWaveComplete chamado! Reiniciando timer...");
         isWaveActive = false;
+        
+        // Restaura o tempo padrão (30s) após a primeira wave
+        timeBetweenWaves = defaultTimeBetweenWaves;
+        
         StartTimer();
     }
     

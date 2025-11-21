@@ -173,17 +173,23 @@ public class ResourceManager : MonoBehaviour
     #region Wave Methods
     
     /// <summary>
-    /// Avança para a próxima wave e dá recompensa
+    /// Avança para a próxima wave (incrementa contador)
     /// </summary>
     public void StartNextWave()
     {
         currentWave++;
-        
-        // Dar recompensa de moedas pela wave
-        AddMoney(moneyPerWave);
-        
         UpdateWaveUI();
-        Debug.Log($"🌊 Wave {currentWave} iniciada! Recompensa: +{moneyPerWave} moedas");
+        Debug.Log($"🌊 Wave {currentWave} iniciada!");
+    }
+    
+    /// <summary>
+    /// Chamado quando uma wave é completada (dá recompensa)
+    /// </summary>
+    public void CompleteWave()
+    {
+        // Dar recompensa de moedas pela wave completada
+        AddMoney(moneyPerWave);
+        Debug.Log($"✅ Wave {currentWave} completada! Recompensa: +{moneyPerWave} moedas");
     }
     
     /// <summary>

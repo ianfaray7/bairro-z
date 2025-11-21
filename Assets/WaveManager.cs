@@ -6,25 +6,25 @@ public class WaveManager : MonoBehaviour
     [System.Serializable]
     public class Wave
     {
-        public string waveName = "Wave 1";
+        public string waveName = "Wave";
         
         [Header("Enemy Normal")]
         public GameObject enemyNormalPrefab;
-        public int enemyNormalCount = 3;
-        public float enemyNormalSpawnDelay = 1f;
+        public int enemyNormalCount;
+        public float enemyNormalSpawnDelay;
         
         [Header("Enemy Tank")]
         public GameObject enemyTankPrefab;
-        public int enemyTankCount = 1;
-        public float enemyTankSpawnDelay = 2f;
+        public int enemyTankCount;
+        public float enemyTankSpawnDelay;
         
         [Header("Enemy Voador")]
         public GameObject enemyVoadorPrefab;
-        public int enemyVoadorCount = 2;
-        public float enemyVoadorSpawnDelay = 1.5f;
+        public int enemyVoadorCount;
+        public float enemyVoadorSpawnDelay;
         
         [Header("Wave Settings")]
-        public float delayBeforeNextWave = 5f;
+        public float delayBeforeNextWave;
     }
 
     [Header("Waves Configuration")]
@@ -33,7 +33,7 @@ public class WaveManager : MonoBehaviour
     [Header("Spawn Settings")]
     public Transform spawnPoint;
     public bool autoStart = true;
-    public float delayBeforeFirstWave = 3f;
+    public float delayBeforeFirstWave = 20f;
 
     private int currentWaveIndex = 0;
     private int enemiesAlive = 0;
@@ -88,7 +88,31 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator StartWavesWithDelay()
     {
-        yield return new WaitForSeconds(delayBeforeFirstWave);
+        // Aguarda 1 segundo para garantir que tudo foi inicializado
+        yield return new WaitForSeconds(1f);
+        
+        // Mostra popup de preparação
+        if (WavePopup.Instance != null)
+        {
+            WavePopup.Instance.ShowPreparation();
+            Debug.Log("📢 Popup de preparação exibido!");
+        }
+        else
+        {
+            Debug.LogError("❌ WavePopup.Instance é NULL!");
+        }
+        
+        // Aguarda mais 2 segundos para o popup ser visível
+        yield return new WaitForSeconds(2f);
+        
+        // Mostra o timer até a primeira wave
+        if (WaveTimerUI.Instance != null)
+        {
+            WaveTimerUI.Instance.SetCustomTimer(delayBeforeFirstWave - 3f); // -3s pelos delays anteriores
+            WaveTimerUI.Instance.StartTimer();
+        }
+        
+        yield return new WaitForSeconds(delayBeforeFirstWave - 3f);
         StartNextWave();
     }
 
@@ -168,6 +192,12 @@ public class WaveManager : MonoBehaviour
         yield return new WaitUntil(() => enemiesAlive <= 0);
         
         Debug.Log("✅ Todos os inimigos foram derrotados!");
+        
+        // 💰 Dá recompensa de moedas pela wave completada
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.CompleteWave();
+        }
         
         // 📢 Mostra popup de wave concluída
         if (WavePopup.Instance != null)

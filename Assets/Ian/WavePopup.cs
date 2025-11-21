@@ -78,7 +78,7 @@ public class WavePopup : MonoBehaviour
     /// </summary>
     public void ShowWaveComplete(int waveNumber)
     {
-        string message = $"Wave {waveNumber:D2} concluída!";
+        string message = $"Wave {waveNumber:D2} concluída! +150 moedas!";
         ShowPopup(message);
     }
     
@@ -177,6 +177,14 @@ public class WavePopup : MonoBehaviour
         {
             rectTransform.localScale = Vector3.zero;
         }
+    }
+    
+    /// <summary>
+    /// Mostra popup de preparação inicial
+    /// </summary>
+    public void ShowPreparation()
+    {
+        ShowPopup("Se prepare! Os zumbis estão vindo!");
     }
     
     /// <summary>
