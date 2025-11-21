@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
 
     private GameObject runtimePanel;
     private bool isPaused = false;
+    private bool gameOver = false;
+    private bool gameOverSubscribed = false;
 
     void Start()
     {
@@ -27,17 +29,76 @@ public class PauseMenu : MonoBehaviour
     void OnEnable()
     {
         PauseManager.OnPauseChanged += OnPauseChanged;
+        TrySubscribeGameOver();
     }
 
     void OnDisable()
     {
         PauseManager.OnPauseChanged -= OnPauseChanged;
+        if (ResourceManager.Instance != null && gameOverSubscribed)
+        {
+            ResourceManager.Instance.OnGameOver.RemoveListener(OnGameOver);
+            gameOverSubscribed = false;
+        }
+    }
+
+    private void TrySubscribeGameOver()
+    {
+        if (!gameOverSubscribed && ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnGameOver.AddListener(OnGameOver);
+            gameOverSubscribed = true;
+            Debug.Log("PauseMenu: Subscribed to ResourceManager.OnGameOver");
+        }
+    }
+
+    private void OnGameOver()
+    {
+        gameOver = true;
+        Debug.Log("PauseMenu: OnGameOver called. Destroying pause UI if present.");
+        if (runtimePanel != null)
+        {
+            Destroy(runtimePanel);
+            runtimePanel = null;
+        }
+        // ensure we won't recreate the UI
+        isPaused = false;
+    }
+
+    // Force hide for external callers (e.g., UIManager) when switching to Game Over
+    public void ForceHidePauseUI()
+    {
+        gameOver = true;
+        if (runtimePanel != null)
+        {
+            Debug.Log("PauseMenu: ForceHidePauseUI called. Destroying runtimePanel");
+            Destroy(runtimePanel);
+            runtimePanel = null;
+        }
+        isPaused = false;
+    }
+
+    public static void HideAllPauseUI()
+    {
+        var menus = GameObject.FindObjectsOfType<PauseMenu>();
+        foreach (var m in menus)
+        {
+            m.ForceHidePauseUI();
+        }
     }
 
     private void OnPauseChanged(bool paused)
     {
         Debug.Log($"PauseMenu: OnPauseChanged paused={paused}");
         isPaused = paused;
+
+        // If the game is over, do not show pause UI over the death screen
+        if (gameOver || (paused && (GameController.gameOver || (ResourceManager.Instance != null && ResourceManager.Instance.GetCurrentLives() <= 0))))
+        {
+            Debug.Log("PauseMenu: Game over detected - skipping pause UI creation");
+            return;
+        }
+
         if (runtimePanel != null)
         {
             runtimePanel.SetActive(paused);
@@ -57,6 +118,11 @@ public class PauseMenu : MonoBehaviour
     
     void Update()
     {
+        // Try to subscribe to game over event in case ResourceManager wasn't ready at OnEnable
+        if (!gameOverSubscribed)
+        {
+            TrySubscribeGameOver();
+        }
         if (!isPaused)
         {
             // left click to pause
@@ -67,17 +133,33 @@ public class PauseMenu : MonoBehaviour
                 if (UnityEngine.EventSystems.EventSystem.current != null && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                PauseManager.Pause();
-                // Update our state and show panel
-                isPaused = true;
-                if (runtimePanel != null) runtimePanel.SetActive(true);
+                // Avoid pause UI while in game over state
+                if (gameOver || GameController.gameOver || (ResourceManager.Instance != null && ResourceManager.Instance.GetCurrentLives() <= 0))
+                {
+                    Debug.Log("PauseMenu: Right-click pause ignored because game is over or no lives.");
+                }
+                else
+                {
+                    PauseManager.Pause();
+                    // Update our state and show panel
+                    isPaused = true;
+                    if (runtimePanel != null) runtimePanel.SetActive(true);
+                }
             }
         }
         // ESC toggle pause
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-                if (PauseManager.IsPaused) PauseManager.Resume();
-                else PauseManager.Pause();
+                // If the game is over, ignore pause toggles to avoid conflict with death screen
+                if (gameOver || GameController.gameOver || (ResourceManager.Instance != null && ResourceManager.Instance.GetCurrentLives() <= 0))
+                {
+                    Debug.Log("PauseMenu: ESC ignored because game is over");
+                }
+                else
+                {
+                    if (PauseManager.IsPaused) PauseManager.Resume();
+                    else PauseManager.Pause();
+                }
 
             // sync UI
             isPaused = PauseManager.IsPaused;
@@ -88,6 +170,15 @@ public class PauseMenu : MonoBehaviour
     public void Pause()
     {
         if (isPaused) return;
+
+        // Do not show pause during game over
+        if (GameController.gameOver || (ResourceManager.Instance != null && ResourceManager.Instance.GetCurrentLives() <= 0))
+        {
+            Debug.Log("PauseMenu: Pause requested but game over - skipping creating pause UI");
+            PauseManager.Pause();
+            isPaused = true;
+            return;
+        }
 
         // Create panel if needed
         if (pausePanelPrefab != null)
@@ -143,6 +234,8 @@ public class PauseMenu : MonoBehaviour
     // Build a simple panel in runtime with two buttons: Continue and Main Menu
     private GameObject CreateRuntimePanel()
     {
+        LogCanvasDiagnostics();
+
         Canvas canvas = UnityEngine.Object.FindFirstObjectByType<Canvas>();
         // Always create a dedicated canvas for the pause panel to ensure it is visible on top
         Canvas hostCanvas = null;
@@ -172,8 +265,11 @@ public class PauseMenu : MonoBehaviour
             canvas = hostCanvas;
         }
 
+        Debug.Log($"PauseMenu: Using canvas '{canvas.gameObject.name}' (overrideSorting={canvas.overrideSorting}, sortingOrder={canvas.sortingOrder}, active={canvas.gameObject.activeInHierarchy})");
+
         var panel = new GameObject("PausePanel");
         panel.transform.SetParent(canvas.transform, false);
+        Debug.Log($"PauseMenu: Panel set parent='{panel.transform.parent?.name}' active={panel.activeSelf} scale={panel.transform.localScale}");
         Debug.Log($"PauseMenu: Created panel '{panel.name}' under canvas '{canvas.gameObject.name}'. Panel active: {panel.activeSelf}");
         panel.transform.SetAsLastSibling();
         var img = panel.AddComponent<Image>();
@@ -361,5 +457,18 @@ public class PauseMenu : MonoBehaviour
             t = t.parent;
         }
         return path;
+    }
+
+    private void LogCanvasDiagnostics()
+    {
+        var canvases = GameObject.FindObjectsOfType<Canvas>();
+        Debug.Log($"PauseMenu: Found {canvases.Length} canvases in scene:");
+        foreach (var c in canvases)
+        {
+            Debug.Log($" - {GetHierarchyPath(c.gameObject)} renderMode={c.renderMode} overrideSorting={c.overrideSorting} sortingOrder={c.sortingOrder} active={c.gameObject.activeInHierarchy}");
+        }
+
+        var es = UnityEngine.EventSystems.EventSystem.current;
+        Debug.Log($"PauseMenu: EventSystem present: {es != null}");
     }
 }

@@ -44,7 +44,7 @@ public class EnemySplit : MonoBehaviour, IEnemy
     {
         if (enemySplitManager.main == null || enemySplitManager.main.checkpoints == null || enemySplitManager.main.checkpoints.Length == 0)
         {
-            Debug.LogError("enemyManager.main.checkpoints não configurado.", this);
+            Debug.LogError("enemySplitManager.main.checkpoints não configurado.", this);
             enabled = false;
             return;
         }
@@ -63,7 +63,7 @@ public class EnemySplit : MonoBehaviour, IEnemy
         // Atualiza referência caso o manager troque os checkpoints em runtime
         if (enemySplitManager.main != null && enemySplitManager.main.checkpoints != null && enemySplitManager.main.checkpoints.Length > 0)
         {
-            index = Mathf.Clamp(index, 0, enemyManager.main.checkpoints.Length - 1);
+            index = Mathf.Clamp(index, 0, enemySplitManager.main.checkpoints.Length - 1);
             checkpoint = enemySplitManager.main.checkpoints[index];
         }
 

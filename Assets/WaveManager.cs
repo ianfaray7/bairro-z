@@ -157,12 +157,29 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator SpawnWave(Wave wave)
     {
+        // If this is a split map, we want approx half of non-flying enemies to use the split path
+        bool isSplitMap = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToLower().Contains("split");
+        int nonVoadorTotal = wave.enemyNormalCount + wave.enemyTankCount;
+        int splitsRemaining = isSplitMap ? Mathf.RoundToInt(nonVoadorTotal * 0.5f) : 0;
+        if (isSplitMap)
+        {
+            Debug.Log($"WaveManager: Map split detected. total non-flying: {nonVoadorTotal}. Splits to select: {splitsRemaining}");
+        }
+        int nonVoadorRemaining = nonVoadorTotal;
         // Spawn Enemy Normal
         for (int i = 0; i < wave.enemyNormalCount; i++)
         {
             if (wave.enemyNormalPrefab != null)
             {
-                SpawnEnemy(wave.enemyNormalPrefab);
+                bool chooseSplit = false;
+                if (isSplitMap && nonVoadorRemaining > 0)
+                {
+                    float p = (float)splitsRemaining / nonVoadorRemaining;
+                    chooseSplit = Random.value < p;
+                    if (chooseSplit) splitsRemaining--;
+                    nonVoadorRemaining--;
+                }
+                SpawnEnemy(wave.enemyNormalPrefab, chooseSplit);
                 yield return new WaitForSeconds(wave.enemyNormalSpawnDelay);
             }
         }
@@ -172,7 +189,15 @@ public class WaveManager : MonoBehaviour
         {
             if (wave.enemyTankPrefab != null)
             {
-                SpawnEnemy(wave.enemyTankPrefab);
+                bool chooseSplit = false;
+                if (isSplitMap && nonVoadorRemaining > 0)
+                {
+                    float p = (float)splitsRemaining / nonVoadorRemaining;
+                    chooseSplit = Random.value < p;
+                    if (chooseSplit) splitsRemaining--;
+                    nonVoadorRemaining--;
+                }
+                SpawnEnemy(wave.enemyTankPrefab, chooseSplit);
                 yield return new WaitForSeconds(wave.enemyTankSpawnDelay);
             }
         }
@@ -182,7 +207,7 @@ public class WaveManager : MonoBehaviour
         {
             if (wave.enemyVoadorPrefab != null)
             {
-                SpawnEnemy(wave.enemyVoadorPrefab);
+                SpawnEnemy(wave.enemyVoadorPrefab, false);
                 yield return new WaitForSeconds(wave.enemyVoadorSpawnDelay);
             }
         }
@@ -243,12 +268,26 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    private void SpawnEnemy(GameObject enemyPrefab)
+    private void SpawnEnemy(GameObject enemyPrefab, bool trySplit = false)
     {
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
         enemiesAlive++;
         
         Debug.Log($"Enemy spawned! Total vivos: {enemiesAlive}");
+
+        // Caso estejamos em um mapa split, alguns inimigos devem usar enemySplitManager
+        bool isSplitMap = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.ToLower().Contains("split");
+        if (trySplit && isSplitMap)
+        {
+            // If enemy has EnemyDurand, set useSplitPath randomly for ~half the enemies
+            var durand = enemy.GetComponent<EnemyDurand>();
+            if (durand != null)
+            {
+                bool useSplit = Random.value < 0.5f;
+                durand.useSplitPath = useSplit;
+                Debug.Log($"WaveManager: Set useSplitPath={useSplit} for {enemy.name}");
+            }
+        }
 
         // Tenta pegar o componente de health para registrar a morte
         EnemyHealth health = enemy.GetComponent<EnemyHealth>();
