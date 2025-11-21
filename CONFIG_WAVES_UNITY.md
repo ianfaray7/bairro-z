@@ -345,7 +345,7 @@ Para cada elemento (Wave 0 a Wave 19):
 
 ### 5. Configurações Adicionais
 - **Auto Start**: True (para começar automaticamente)
-- **Delay Before First Wave**: 3.0 (segundos antes da primeira wave)
+- **Delay Before First Wave**: 20.0 (segundos antes da primeira wave - com popup e timer visível)
 
 ---
 
