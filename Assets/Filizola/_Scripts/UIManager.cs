@@ -193,24 +193,25 @@ public class UIManager : MonoBehaviour
     
     private void CreateRuntimeVictoryPanel()
     {
-        Canvas canvas = UnityEngine.Object.FindFirstObjectByType<Canvas>();
-        if (canvas == null)
-        {
-            var cgo = new GameObject("Canvas_Victory");
-            canvas = cgo.AddComponent<Canvas>();
-            cgo.AddComponent<UnityEngine.UI.CanvasScaler>();
-            cgo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.overrideSorting = true;
-            canvas.sortingOrder = 30000;
-        }
+        // Sempre cria um novo Canvas dedicado para garantir que fique no topo
+        var cgo = new GameObject("Canvas_Victory");
+        Canvas canvas = cgo.AddComponent<Canvas>();
+        cgo.AddComponent<UnityEngine.UI.CanvasScaler>();
+        cgo.AddComponent<UnityEngine.UI.GraphicRaycaster>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 32767; // Valor máximo para ficar acima de tudo
+        
+        Debug.Log($"UIManager: Canvas criado com sorting order {canvas.sortingOrder}");
 
         var panel = new GameObject("VictoryPanel");
         panel.transform.SetParent(canvas.transform, false);
+        Debug.Log("UIManager: VictoryPanel criado como filho do Canvas");
         var img = panel.AddComponent<UnityEngine.UI.Image>();
         img.color = new Color(0f, 0.2f, 0f, 0.9f); // Verde escuro
         var rect = panel.GetComponent<RectTransform>();
         rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = Vector2.zero; rect.offsetMax = Vector2.zero;
+        
+        Debug.Log($"UIManager: Painel verde criado. Active: {panel.activeSelf}, Canvas active: {canvas.gameObject.activeSelf}");
 
         var container = new GameObject("Container");
         container.transform.SetParent(panel.transform, false);
@@ -244,6 +245,9 @@ public class UIManager : MonoBehaviour
         var le = btnGo.AddComponent<UnityEngine.UI.LayoutElement>(); le.preferredWidth = 300; le.preferredHeight = 50;
         btn.onClick.AddListener(() => { PauseManager.Resume(); UnityEngine.SceneManagement.SceneManager.LoadScene(0); });
 
+        Debug.Log("UIManager: Tela de vitória completamente criada!");
+        Debug.Log($"UIManager: Hierarquia - Canvas: {canvas.gameObject.name}, Panel: {panel.name}, Botão: {btnGo.name}");
+        
         PauseManager.Pause();
     }
 }
