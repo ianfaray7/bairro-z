@@ -128,6 +128,7 @@ public class MapSelectionUI : MonoBehaviour
                 label.gameObject.SetActive(true);
                 label.color = Color.black;
                 label.alignment = TextAnchor.MiddleCenter;
+                label.fontSize = Mathf.RoundToInt(buttonSize.y * 0.7f);
                 label.transform.SetAsLastSibling();
             }
             else if (labelTMP != null)
@@ -136,6 +137,7 @@ public class MapSelectionUI : MonoBehaviour
                 labelTMP.gameObject.SetActive(true);
                 labelTMP.color = Color.black;
                 labelTMP.alignment = TextAlignmentOptions.Center;
+                labelTMP.fontSize = Mathf.RoundToInt(buttonSize.y * 0.7f);
                 labelTMP.rectTransform.anchorMin = Vector2.zero;
                 labelTMP.rectTransform.anchorMax = Vector2.one;
                 labelTMP.rectTransform.offsetMin = Vector2.zero;
@@ -353,8 +355,8 @@ public class MapSelectionUI : MonoBehaviour
             b.name = "MapButton_" + name;
             var label = b.GetComponentInChildren<Text>();
             var labelTMP = b.GetComponentInChildren<TextMeshProUGUI>();
-            if (label != null) { label.text = MapDisplayName(name); label.gameObject.SetActive(true); label.color = Color.black; label.transform.SetAsLastSibling(); label.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f); }
-            if (labelTMP != null) { labelTMP.text = MapDisplayName(name); labelTMP.gameObject.SetActive(true); labelTMP.color = Color.black; labelTMP.transform.SetAsLastSibling(); labelTMP.fontSize = Mathf.RoundToInt(buttonSize.y * 0.35f); }
+            if (label != null) { label.text = MapDisplayName(name); label.gameObject.SetActive(true); label.color = Color.black; label.transform.SetAsLastSibling(); label.fontSize = Mathf.RoundToInt(buttonSize.y * 0.7f); }
+            if (labelTMP != null) { labelTMP.text = MapDisplayName(name); labelTMP.gameObject.SetActive(true); labelTMP.color = Color.black; labelTMP.transform.SetAsLastSibling(); labelTMP.fontSize = Mathf.RoundToInt(buttonSize.y * 0.7f); }
 
             // If panel is dark, invert text color for readability
             var panelImg = panel?.GetComponent<UnityEngine.UI.Image>();

@@ -15383,12 +15383,12 @@ MonoBehaviour:
   bowClip: {fileID: 8300000, guid: 33ea8f314e163da4ca2bb3e68b126471, type: 3}
   zumbiHitClip: {fileID: 8300000, guid: b8b8c409cd74b1148988fed7edaa3486, type: 3}
   zumbiDeathClip: {fileID: 8300000, guid: 4c7cf661142794f4697d0bffa71c698e, type: 3}
-  towerArqueiraClip: {fileID: 0}
-  towerAtiradorClip: {fileID: 0}
-  towerMorteiroClip: {fileID: 0}
-  towerEletricaClip: {fileID: 0}
-  towerUpgradeClip: {fileID: 0}
-  towerSellClip: {fileID: 0}
+  towerArqueiraClip: {fileID: 8300000, guid: 85e711095f6d16949b254fe9f8966783, type: 3}
+  towerAtiradorClip: {fileID: 8300000, guid: cfec707af0e73fd40b80eb4da5a8d068, type: 3}
+  towerMorteiroClip: {fileID: 8300000, guid: 96ee728b5b8e88143bf3f2af7de8210f, type: 3}
+  towerEletricaClip: {fileID: 8300000, guid: 9972740c998694840a5b2863471de549, type: 3}
+  towerUpgradeClip: {fileID: 8300000, guid: c8c8718bdc412f44a9d307b4c0ec2ffe, type: 3}
+  towerSellClip: {fileID: 8300000, guid: a03ba4213b04ae3489097aa891586ab1, type: 3}
   sfxMasterVolume: 0.9
   bowVolume: 1
   zumbiHitVolume: 0.215
