@@ -27,6 +27,7 @@ public class OrbitingWeaponsManager : MonoBehaviour
     List<Transform> weapons = new List<Transform>();
     Camera mainCam;
     SpriteRenderer playerSprite;
+    Vector2 lastAimDirection = Vector2.right; // Guarda última direção de mira
 
     void Awake()
     {
@@ -47,7 +48,9 @@ public class OrbitingWeaponsManager : MonoBehaviour
         UpdateWeaponsPositionAndRotation();
 
         fireTimer -= Time.deltaTime;
-        bool fireInput = holdToFire ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
+        
+        // Suporte para controles mobile e mouse
+        bool fireInput = GetFireInput();
 
         if (fireInput && fireTimer <= 0f)
         {
@@ -92,12 +95,9 @@ public class OrbitingWeaponsManager : MonoBehaviour
 
     void UpdateWeaponsPositionAndRotation()
     {
-        Vector2 mouseWorld = Vector2.zero;
-        if (mainCam != null)
-        {
-            Vector3 mp = Input.mousePosition;
-            mouseWorld = mainCam.ScreenToWorldPoint(mp);
-        }
+        Vector2 aimDirection = GetAimDirection();
+        // Cria um ponto de mira a uma distância fixa para rotação das armas
+        Vector2 aimTarget = (Vector2)transform.position + (aimDirection * 5f);
 
         for (int i = 0; i < weapons.Count; i++)
         {
@@ -121,8 +121,8 @@ public class OrbitingWeaponsManager : MonoBehaviour
             else
                 wt.localPosition = targetLocal;
 
-            // Rotação: arma mira para o mouse (em world space)
-            Vector2 dir = mouseWorld - (Vector2)wt.position;
+            // Rotação: arma mira para o ponto de mira
+            Vector2 dir = aimTarget - (Vector2)wt.position;
             if (dir.sqrMagnitude > 0.001f)
             {
                 float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -153,10 +153,84 @@ public class OrbitingWeaponsManager : MonoBehaviour
 
     void FireAllWeapons()
     {
+        // Pega a direção de mira (joystick ou mouse)
+        Vector2 aimDir = GetAimDirection();
+        
         foreach (Transform wt in weapons)
         {
             Weapon w = wt.GetComponent<Weapon>();
-            if (w != null) w.Fire();
+            if (w != null) w.Fire(aimDir); // Passa a direção para o Weapon
         }
     }
+    
+    /// <summary>
+    /// Obtém input de disparo (mouse ou joystick mobile)
+    /// </summary>
+    private bool GetFireInput()
+    {
+        // Em mobile, APENAS o joystick de ataque pode atirar
+#if UNITY_ANDROID || UNITY_IOS
+        if (AttackJoystick.Instance != null && AttackJoystick.Instance.IsAttacking())
+        {
+            return true;
+        }
+        return false;
+#else
+        // Em PC/Web, tenta joystick primeiro, depois mouse
+        if (AttackJoystick.Instance != null && AttackJoystick.Instance.IsAttacking())
+        {
+            return true;
+        }
+        
+        // Fallback para mouse
+        return holdToFire ? Input.GetMouseButton(0) : Input.GetMouseButtonDown(0);
+#endif
+    }
+    
+    /// <summary>
+    /// Obtém direção de mira (joystick mobile ou mouse)
+    /// </summary>
+    private Vector2 GetAimDirection()
+    {
+        // MOBILE: Usa apenas o joystick
+#if UNITY_ANDROID || UNITY_IOS
+        if (AttackJoystick.Instance != null)
+        {
+            Vector2 joyInput = AttackJoystick.Instance.GetInput();
+            if (joyInput.sqrMagnitude > 0.01f)
+            {
+                return joyInput.normalized;
+            }
+        }
+        // Se não tem input, mantém última direção
+        return lastAimDirection;
+        
+        // PC/WEB: Usa joystick se disponível, senão mouse
+#else
+        if (AttackJoystick.Instance != null)
+        {
+            Vector2 joyInput = AttackJoystick.Instance.GetInput();
+            if (joyInput.sqrMagnitude > 0.01f)
+            {
+                lastAimDirection = joyInput.normalized;
+                return lastAimDirection;
+            }
+        }
+        
+        // Mouse: Calcula direção do player para o mouse
+        if (mainCam != null)
+        {
+            Vector3 mp = Input.mousePosition;
+            Vector2 mouseWorld = mainCam.ScreenToWorldPoint(mp);
+            Vector2 dirToMouse = mouseWorld - (Vector2)transform.position;
+            if (dirToMouse.sqrMagnitude > 0.01f)
+            {
+                lastAimDirection = dirToMouse.normalized;
+            }
+        }
+        
+        return lastAimDirection;
+#endif
+    }
 }
+

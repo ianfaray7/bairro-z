@@ -135,8 +135,8 @@ public class PauseMenu : MonoBehaviour
         }
         if (!isPaused)
         {
-            // left click to pause
-            // use right click for pause to avoid conflict with shooting (left click)
+            // Pause com botão direito do mouse - DESABILITADO EM MOBILE
+#if !UNITY_ANDROID && !UNITY_IOS
             if (Input.GetMouseButtonDown(1))
             {
                 // avoid pausing while clicking UI
@@ -156,6 +156,7 @@ public class PauseMenu : MonoBehaviour
                     if (runtimePanel != null) runtimePanel.SetActive(true);
                 }
             }
+#endif
         }
         // ESC toggle pause
         if (Input.GetKeyDown(KeyCode.Escape))
