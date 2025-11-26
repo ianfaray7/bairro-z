@@ -271,6 +271,12 @@ public class WaveManager : MonoBehaviour
             {
                 WaveTimerUI.Instance.StopTimer();
             }
+            
+            // Dispara evento de vitória no ResourceManager
+            if (ResourceManager.Instance != null)
+            {
+                ResourceManager.Instance.TriggerVictory();
+            }
         }
     }
 

@@ -42,6 +42,7 @@ public class ResourceManager : MonoBehaviour
     // Eventos para notificar outras partes do jogo
     public UnityEvent OnLivesChanged;
     public UnityEvent OnGameOver;
+    public UnityEvent OnVictory;
     public UnityEvent OnMoneyChanged;
     
     // Singleton para fácil acesso
@@ -166,6 +167,15 @@ public class ResourceManager : MonoBehaviour
         Debug.Log("💀 GAME OVER! Todas as vidas foram perdidas!");
         OnGameOver?.Invoke();
         // Aqui pode adicionar lógica de game over (pausar jogo, mostrar tela, etc)
+    }
+    
+    /// <summary>
+    /// Método público para trigger de vitória (chamado pelo WaveManager)
+    /// </summary>
+    public void TriggerVictory()
+    {
+        Debug.Log("🏆 VITÓRIA! Todas as waves foram derrotadas!");
+        OnVictory?.Invoke();
     }
     
     #endregion
