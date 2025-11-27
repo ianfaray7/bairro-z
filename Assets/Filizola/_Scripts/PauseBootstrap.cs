@@ -13,6 +13,9 @@ public static class PauseBootstrap
     {
         try
         {
+            // Habilita multi-touch globalmente
+            Input.multiTouchEnabled = true;
+            
             if (scene.name != null && scene.name.StartsWith("Map_"))
             {
                 if (UnityEngine.Object.FindFirstObjectByType<PauseMenu>() == null)

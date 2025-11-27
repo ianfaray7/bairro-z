@@ -28,22 +28,36 @@ public class Weapon : MonoBehaviour
 
     public void Fire()
     {
+        Fire(Vector2.zero); // Chama a versão com direção customizada
+    }
+    
+    public void Fire(Vector2 customDirection)
+    {
         // Não disparar se o jogo estiver em pausa
         if (PauseManager.IsPaused) return;
         if (cdTimer > 0f) return;
 
         Vector2 origin = muzzlePoint ? (Vector2)muzzlePoint.position : (Vector2)transform.position;
 
-        // calcula alvo com o mouse
-        Vector2 target = origin;
-        if (mainCam != null)
+        Vector2 dir;
+        
+        // Se tem direção customizada, usa ela (joystick mobile)
+        if (customDirection.sqrMagnitude > 0.01f)
         {
-            Vector3 mp = Input.mousePosition;
-            Vector3 mw = mainCam.ScreenToWorldPoint(mp);
-            target = new Vector2(mw.x, mw.y);
+            dir = customDirection.normalized;
         }
-
-        Vector2 dir = (target - origin).normalized;
+        else
+        {
+            // Fallback: calcula direção com o mouse
+            Vector2 target = origin;
+            if (mainCam != null)
+            {
+                Vector3 mp = Input.mousePosition;
+                Vector3 mw = mainCam.ScreenToWorldPoint(mp);
+                target = new Vector2(mw.x, mw.y);
+            }
+            dir = (target - origin).normalized;
+        }
 
         if (projectilePrefab != null)
         {

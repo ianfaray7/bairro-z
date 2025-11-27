@@ -20,9 +20,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Captura input do jogador
-        movement.x = Input.GetAxis("Horizontal");
-        movement.y = Input.GetAxis("Vertical");
+        // Captura input do jogador (suporta teclado e mobile)
+        movement = GetMovementInput();
         
         // Atualiza animações
         if (animator != null)
@@ -45,5 +44,28 @@ public class PlayerMovement : MonoBehaviour
     {
         // Move o personagem
         rb.MovePosition(rb.position + movement.normalized * moveSpeed * Time.fixedDeltaTime);
+    }
+    
+    /// <summary>
+    /// Obtém input de movimento (teclado ou joystick virtual)
+    /// </summary>
+    private Vector2 GetMovementInput()
+    {
+        Vector2 input = Vector2.zero;
+        
+        // Tenta pegar input do joystick virtual primeiro (mobile)
+        if (VirtualJoystick.Instance != null)
+        {
+            input = VirtualJoystick.Instance.GetInput();
+        }
+        
+        // Se não tiver input do joystick, usa teclado/gamepad
+        if (input.sqrMagnitude < 0.01f)
+        {
+            input.x = Input.GetAxis("Horizontal");
+            input.y = Input.GetAxis("Vertical");
+        }
+        
+        return input;
     }
 }
